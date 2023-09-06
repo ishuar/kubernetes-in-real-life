@@ -23,7 +23,9 @@ resource "azurerm_subnet" "aks_api" {
     name = "aks-api-access-profile"
     service_delegation {
       name    = "Microsoft.ContainerService/managedClusters"
-      actions = []
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action"
+      ]
     }
   }
 }

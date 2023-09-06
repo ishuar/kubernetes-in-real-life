@@ -2,16 +2,16 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: ingress-nginx
-  namespace: ingress-nginx
+  namespace: flux
 spec:
   chart:
     spec:
       chart: ingress-nginx # { artifact-hub-package: helm/ingress-nginx/ingress-nginx }
-      interval: 60m
+      interval: 1m
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
-        namespace: ingress-nginx
+        namespace: flux
       version: 4.7.1
   interval: 5m
   # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
