@@ -59,7 +59,7 @@ module "aks" {
   ## Networking
   vnet_subnet_id      = azurerm_subnet.aks_node.id
   network_plugin      = "azure"
-  network_plugin_mode = "Overlay"
+  network_plugin_mode = "overlay"
   service_cidrs       = ["100.1.0.0/16"]
   pod_cidrs           = ["100.2.0.0/16"]
   dns_service_ip      = "100.1.0.100"
@@ -71,23 +71,26 @@ module "aks" {
   oidc_issuer_enabled       = true
 
   ## Flux
-  enable_fluxcd                      = true
-  fluxcd_extension_name              = "fluxcd"
-  fluxcd_configuration_name          = "docker-registry"
-  fluxcd_extension_release_namespace = "flux-system"
-  fluxcd_namespace                   = "flux"
-  fluxcd_scope                       = "cluster"
-  fluxcd_git_repository_url          = "https://github.com/ishuar/kubernetes-projects"
+  enable_fluxcd                                  = true
+  fluxcd_extension_name                          = "fluxcd"
+  fluxcd_configuration_name                      = "docker-registry"
+  fluxcd_extension_release_namespace             = "flux-system"
+  fluxcd_namespace                               = "flux" ##?This Namespace should be used in k8s manifests sync with AKS fluxCD when multi tenancy is enabled.
+  fluxcd_scope                                   = "cluster"
+  fluxcd_git_repository_url                      = "https://github.com/ishuar/kubernetes-projects"
+  fluxcd_git_repository_sync_interval_in_seconds = 60
   kustomizations = [
     {
-      name = "infrastructure"
-      path = "./azure-kubernetes-service/private-docker-registry/fluxcd"
+      name                     = "infrastructure"
+      path                     = "./azure-kubernetes-service/private-docker-registry/fluxcd/infrastructure"
+      sync_interval_in_seconds = 60
     },
-    # {
-    #   name       = "apps"
-    #   path       = "./apps/staging"
-    #   depends_on = ["infrastructure"]
-    # }
+    {
+      name                     = "weave-flux-ui"
+      path                     = "./azure-kubernetes-service/private-docker-registry/fluxcd/weave-flux-ui"
+      sync_interval_in_seconds = 60
+      depends_on               = ["infrastructure"]
+    },
   ]
   ### This is experimental only Feature
   enable_fluxcd_az_providers = true
