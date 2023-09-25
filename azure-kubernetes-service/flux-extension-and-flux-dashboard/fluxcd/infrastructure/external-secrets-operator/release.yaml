@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-secrets-operator
+spec:
+  chart:
+    spec:
+      chart: external-secrets
+      interval: 1m
+      sourceRef:
+        kind: HelmRepository
+        name: external-secrets-operator
+        namespace: flux
+      version: 0.9.5
+  interval: 5m
+  # https://github.com/external-secrets/external-secrets/blob/main/deploy/charts/external-secrets/values.yaml
+  values:
+    serviceAccount:
+      name: sa-external-secrets-operator
+      create: true
+      annotations:
+        azure.workload.identity/client-id: 405611ea-cf3a-4a28-8d59-01f848b81a97
+        azure.workload.identity/tenant-id: 9c1de352-64a4-4509-b3fc-4ef2df8db9b8
+    podLabels:
+      azure.workload.identity/use: "true"

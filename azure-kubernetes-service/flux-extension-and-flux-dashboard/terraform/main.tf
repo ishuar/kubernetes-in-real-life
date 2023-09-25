@@ -25,9 +25,15 @@ resource "azurerm_user_assigned_identity" "aks" {
   location            = azurerm_resource_group.aks.location
 }
 
+# data "azurerm_kubernetes_service_versions" "current" {
+#   location        = "West Europe"
+#   include_preview = true
+# }
+
 ## FluxCD enabled Azure Kubernetes Cluster
 ## ? ref : https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2?tabs=azure-cli#for-azure-kubernetes-service-clusters
-module "aks" {
+
+module "flux_ui" {
   source  = "ishuar/aks/azure"
   version = "1.5.0"
 
@@ -37,6 +43,7 @@ module "aks" {
   name                = "container-registry-${local.tags["github_repo"]}"
   dns_prefix          = "fluxaks"
   key_data            = trimspace(module.ssh_key_generator.public_ssh_key)
+  # kubernetes_version  = azurerm_kubernetes_service_versions.current.latest_version
   tags                = local.tags
 
   ## Identity
@@ -75,19 +82,19 @@ module "aks" {
   fluxcd_extension_name                          = "fluxcd"
   fluxcd_configuration_name                      = "docker-registry"
   fluxcd_extension_release_namespace             = "flux-system"
-  fluxcd_namespace                               = "flux" ##?This Namespace should be used in k8s manifests sync with AKS fluxCD when multi tenancy is enabled.
+  fluxcd_namespace                               = local.flux_manifests_namespace ##?This Namespace should be used in k8s manifests sync with AKS fluxCD when multi tenancy is enabled.
   fluxcd_scope                                   = "cluster"
   fluxcd_git_repository_url                      = "https://github.com/ishuar/kubernetes-projects"
   fluxcd_git_repository_sync_interval_in_seconds = 60
   kustomizations = [
     {
       name                     = "infrastructure"
-      path                     = "./azure-kubernetes-service/private-docker-registry/fluxcd/infrastructure"
+      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/infrastructure"
       sync_interval_in_seconds = 60
     },
     {
       name                     = "weave-flux-ui"
-      path                     = "./azure-kubernetes-service/private-docker-registry/fluxcd/weave-flux-ui"
+      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/weave-flux-ui"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure"]
     },

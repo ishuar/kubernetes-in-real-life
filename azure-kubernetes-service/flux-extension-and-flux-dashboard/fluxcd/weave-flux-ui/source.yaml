@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/created-by: weave-gitops-cli
     app.kubernetes.io/name: weave-gitops-dashboard
     app.kubernetes.io/part-of: weave-gitops
-  name: ww-gitops-flux-ui
+  name: weave-gitops-flux-ui
   namespace: flux
 spec:
   interval: 1h0m0s

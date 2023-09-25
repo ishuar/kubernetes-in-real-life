@@ -5,7 +5,7 @@ metadata:
   annotations:
     metadata.weave.works/description: This is the Weave GitOps Dashboard.  It provides
       a simple way to get insights into your GitOps workloads.
-  name: ww-gitops-flux-ui
+  name: weave-gitops-flux-ui
   namespace: flux
 spec:
   chart:
@@ -13,7 +13,7 @@ spec:
       chart: weave-gitops
       sourceRef:
         kind: HelmRepository
-        name: ww-gitops-flux-ui
+        name: weave-gitops-flux-ui
         namespace: flux
   interval: 1h0m0s
   values:

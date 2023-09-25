@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - ./nginx-ingress
 - ./sources
+- ./external-secrets-operator
