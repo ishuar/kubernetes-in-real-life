@@ -80,7 +80,7 @@ module "flux_ui" {
   ## Flux
   enable_fluxcd                                  = true
   fluxcd_extension_name                          = "fluxcd"
-  fluxcd_configuration_name                      = "docker-registry"
+  fluxcd_configuration_name                      = "flux-ui-dashboard"
   fluxcd_extension_release_namespace             = "flux-system"
   fluxcd_namespace                               = local.flux_manifests_namespace ##?This Namespace should be used in k8s manifests sync with AKS fluxCD when multi tenancy is enabled.
   fluxcd_scope                                   = "cluster"
@@ -93,10 +93,16 @@ module "flux_ui" {
       sync_interval_in_seconds = 60
     },
     {
+      name                     = "external-secrets-store"
+      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/secret-store"
+      sync_interval_in_seconds = 60
+      depends_on               = ["infrastructure"]
+    },
+    {
       name                     = "weave-flux-ui"
       path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/weave-flux-ui"
       sync_interval_in_seconds = 60
-      depends_on               = ["infrastructure"]
+      depends_on               = ["infrastructure","external-secrets-store"]
     },
   ]
   ### This is experimental only Feature
