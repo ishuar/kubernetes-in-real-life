@@ -17,6 +17,5 @@ spec:
             hostedZoneName: k8s.learndevops.in
             resourceGroupName: rg-kubernetes-projects
             subscriptionID: c5bcdb0e-4322-4305-8f70-fc66eff37c1a
-            tenantID: 9c1de352-64a4-4509-b3fc-4ef2df8db9b8
             managedIdentity:
               clientID: 15eeb354-decf-4282-95f7-079efe464f87
