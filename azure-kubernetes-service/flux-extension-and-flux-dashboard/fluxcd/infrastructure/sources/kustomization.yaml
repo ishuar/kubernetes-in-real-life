@@ -3,4 +3,7 @@ kind: Kustomization
 resources:
   - ingress-nginx.yaml
   - external-secrets-operator.yaml
+  - cert-manager.yaml
+  - external-dns.yaml
+  - bitnami.yaml
 namespace: flux
