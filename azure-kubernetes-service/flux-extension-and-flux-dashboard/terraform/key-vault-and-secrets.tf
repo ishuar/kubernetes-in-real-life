@@ -15,7 +15,7 @@ resource "azurerm_key_vault" "k8s_flux" {
 resource "azurerm_role_assignment" "kv_rbac" {
   for_each = {
     "Key Vault Administrator" = data.azurerm_client_config.current.object_id
-    "Key Vault Reader"        = azurerm_user_assigned_identity.this["external-secrets-operator"].principal_id
+    "Key Vault Secrets User"  = azurerm_user_assigned_identity.this["external-secrets-operator"].principal_id
   }
 
   principal_id         = each.value
