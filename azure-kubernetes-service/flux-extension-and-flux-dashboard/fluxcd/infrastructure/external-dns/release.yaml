@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  chart:
+    spec:
+      chart: external-secrets
+      interval: 1m
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+        namespace: flux
+      version: 1.13.1
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  dependsOn:
+  - name: external-secrets-operator
+  interval: 5m
+  # https://github.com/external-secrets/external-secrets/blob/main/deploy/charts/external-secrets/values.yaml
+  values:
+    serviceAccount:
+      name: sa-external-dns
+      create: true
+      labels:
+        azure.workload.identity/use: "true"
+      annotations:
+        azure.workload.identity/client-id: 6c7356d0-e15a-4181-9d51-5af464d1bd97
+        azure.workload.identity/tenant-id: 9c1de352-64a4-4509-b3fc-4ef2df8db9b8
+    podLabels:
+      azure.workload.identity/use: "true"
+    provider: azure
+    secretConfiguration:
+      enabled: true
+      mountPath: "/etc/kubernetes/"
+      data:
+        azure.json: |
+          {
+            "subscriptionId": "c5bcdb0e-4322-4305-8f70-fc66eff37c1a",
+            "resourceGroup": "rg-kubernetes-projects",
+            "useWorkloadIdentityExtension": true
+          }

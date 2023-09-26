@@ -22,20 +22,16 @@ spec:
       create: true
       passwordHash: $2a$10$ntgXglW1iazgn8s.QERnYekKr/4dpDggIcgCBDJPdOyh0l6glSmmq
       username: admin
-    service:
-      type: LoadBalancer
-      annotations:
-        service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: "/healthz"
-    # ingress:
-    #   enabled: true
-    #   className: nginx
-    #   annotations: {}
-    #   hosts:
-    #     - host: flux.kubernetes.learndevops.in
-    #       paths:
-    #         - path: /
-    #           pathType: ImplementationSpecific
-    #   tls:
-    #     - secretName: flux-ui-tls
-    #       hosts:
-    #         - flux.kubernetes.learndevops.in
+    ingress:
+      enabled: true
+      className: nginx
+      annotations: {}
+      hosts:
+        - host: flux-dashboard.k8s.learndevops.in
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: flux-ui-tls
+          hosts:
+            - flux-dashboard.k8s.learndevops.in
