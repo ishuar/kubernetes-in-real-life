@@ -4,3 +4,5 @@ resources:
 - ./nginx-ingress
 - ./sources
 - ./external-secrets-operator
+- ./cert-manager
+- ./external-dns
