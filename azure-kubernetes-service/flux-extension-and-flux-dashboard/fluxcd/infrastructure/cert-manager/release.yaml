@@ -33,5 +33,7 @@ spec:
     podLabels:
       azure.workload.identity/use: "true"
     serviceAccount:
+      annotations:
+        azure.workload.identity/client-id: 15eeb354-decf-4282-95f7-079efe464f87
       labels:
         azure.workload.identity/use: "true"
