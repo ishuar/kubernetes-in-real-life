@@ -15,7 +15,7 @@ resource "azurerm_key_vault" "k8s_flux" {
 resource "azurerm_role_assignment" "kv_rbac" {
   for_each = {
     "Key Vault Administrator" = data.azurerm_client_config.current.object_id
-    "Key Vault Reader"        = azurerm_user_assigned_identity.external_secrets_operator.principal_id
+    "Key Vault Reader"        = azurerm_user_assigned_identity.this["external-secrets-operator"].principal_id
   }
 
   principal_id         = each.value
@@ -29,25 +29,6 @@ resource "azurerm_role_assignment" "kv_rbac" {
 
 # ##? Update KV with the app registration secretIds
 # ##? depends on current objectID azure RBAC on kV
-
-resource "azurerm_key_vault_secret" "client_id" {
-  for_each = toset(local.service_principals)
-
-  name         = join("-", ["spn", (each.value), "clientid"])
-  content_type = "username"
-  key_vault_id = azurerm_key_vault.k8s_flux.id
-  value        = azuread_service_principal.this[each.value].application_id
-}
-
-resource "azurerm_key_vault_secret" "client_secret" {
-  for_each = toset(local.service_principals)
-
-  name         = join("-", ["spn", (each.value), "clientsecret"])
-  content_type = "password"
-  key_vault_id = azurerm_key_vault.k8s_flux.id
-  value        = azuread_service_principal_password.this[each.value].value
-}
-
 resource "azurerm_key_vault_secret" "subscription_and_tenant_id" {
   for_each = {
     subscriptionid = data.azurerm_client_config.current.subscription_id
@@ -58,4 +39,19 @@ resource "azurerm_key_vault_secret" "subscription_and_tenant_id" {
   content_type = "generic"
   key_vault_id = azurerm_key_vault.k8s_flux.id
   value        = each.value
+}
+
+#### Application Secret to Key Vault ###
+resource "azurerm_key_vault_secret" "flux_ui_client_id" {
+  name         = join("-", ["spn", "flux-dashboard-oidc", "clientid"])
+  content_type = "username"
+  key_vault_id = azurerm_key_vault.k8s_flux.id
+  value        = azuread_service_principal.flux_ui.application_id
+}
+
+resource "azurerm_key_vault_secret" "flux_ui_client_secret" {
+  name         = join("-", ["spn", "flux-dashboard-oidc", "clientsecret"])
+  content_type = "password"
+  key_vault_id = azurerm_key_vault.k8s_flux.id
+  value        = azuread_service_principal_password.flux_ui.value
 }

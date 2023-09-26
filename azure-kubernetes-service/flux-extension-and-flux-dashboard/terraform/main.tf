@@ -44,7 +44,7 @@ module "flux_ui" {
   dns_prefix          = "fluxaks"
   key_data            = trimspace(module.ssh_key_generator.public_ssh_key)
   # kubernetes_version  = azurerm_kubernetes_service_versions.current.latest_version
-  tags                = local.tags
+  tags = local.tags
 
   ## Identity
   identity_type = "UserAssigned"
@@ -86,6 +86,7 @@ module "flux_ui" {
   fluxcd_scope                                   = "cluster"
   fluxcd_git_repository_url                      = "https://github.com/ishuar/kubernetes-projects"
   fluxcd_git_repository_sync_interval_in_seconds = 60
+
   kustomizations = [
     {
       name                     = "infrastructure"
@@ -99,10 +100,16 @@ module "flux_ui" {
       depends_on               = ["infrastructure"]
     },
     {
+      name                     = "cluster-issuer"
+      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/cluster-issuer"
+      sync_interval_in_seconds = 60
+      depends_on               = ["infrastructure"]
+    },
+    {
       name                     = "weave-flux-ui"
       path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/weave-flux-ui"
       sync_interval_in_seconds = 60
-      depends_on               = ["infrastructure","external-secrets-store"]
+      depends_on               = ["infrastructure", "external-secrets-store", "cluster-issuer"]
     },
   ]
   ### This is experimental only Feature
