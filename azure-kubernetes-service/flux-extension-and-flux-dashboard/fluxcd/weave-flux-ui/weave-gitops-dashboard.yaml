@@ -6,7 +6,6 @@ metadata:
     metadata.weave.works/description: This is the Weave GitOps Dashboard.  It provides
       a simple way to get insights into your GitOps workloads.
   name: weave-gitops-flux-ui
-  namespace: flux
 spec:
   chart:
     spec:
