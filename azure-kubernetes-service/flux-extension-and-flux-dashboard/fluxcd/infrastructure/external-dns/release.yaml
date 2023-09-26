@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: external-secrets
+      chart: external-dns
       interval: 1m
       sourceRef:
         kind: HelmRepository
