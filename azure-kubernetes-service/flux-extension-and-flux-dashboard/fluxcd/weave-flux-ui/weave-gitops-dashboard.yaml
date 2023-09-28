@@ -16,6 +16,7 @@ spec:
         namespace: flux
   interval: 1h0m0s
   values:
+    logLevel: debug
     envVars:
     - name: WEAVE_GITOPS_FEATURE_TENANCY
       value: "true"
@@ -28,7 +29,7 @@ spec:
     - name: WEAVE_GITOPS_FEATURE_OIDC_ENABLED
       value: "true"
     - name: WEAVE_GITOPS_FEATURE_OIDC_BUTTON_LABEL
-      value: "My Pro Login"
+      value: "My Pro OIDC Login"
     adminUser:
       create: true
       passwordHash: $2a$10$ntgXglW1iazgn8s.QERnYekKr/4dpDggIcgCBDJPdOyh0l6glSmmq
