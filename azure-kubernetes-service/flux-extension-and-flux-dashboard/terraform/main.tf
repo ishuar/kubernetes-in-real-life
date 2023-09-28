@@ -35,7 +35,7 @@ resource "azurerm_user_assigned_identity" "aks" {
 
 module "flux_ui" {
   source  = "ishuar/aks/azure"
-  version = "1.5.0"
+  version = "1.6.0"
 
 
   location            = azurerm_resource_group.aks.location
@@ -73,6 +73,13 @@ module "flux_ui" {
   # ebpf_data_plane     = "cilium"
   network_policy = "calico"
 
+  ## Azure Active Directory
+  local_account_disabled = true
+  aad_rbac_enabled       = true ## Enable the feature for Azure RBAC with AKS
+  aad_rbac_managed       = true ## Manged RBAC
+  aad_azure_rbac_enabled = true ## Azure AAD and Azure RBAC ( No K8s RBAC )
+
+
   ## Workload Identity
   workload_identity_enabled = true
   oidc_issuer_enabled       = true
@@ -86,6 +93,9 @@ module "flux_ui" {
   fluxcd_scope                                   = "cluster"
   fluxcd_git_repository_url                      = "https://github.com/ishuar/kubernetes-projects"
   fluxcd_git_repository_sync_interval_in_seconds = 60
+  fluxcd_extension_configuration_settings = {
+    "multiTenancy.enforce" = false
+  }
 
   kustomizations = [
     {
