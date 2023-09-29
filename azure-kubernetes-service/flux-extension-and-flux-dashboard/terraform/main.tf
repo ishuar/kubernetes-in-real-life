@@ -25,6 +25,15 @@ resource "azurerm_user_assigned_identity" "aks" {
   location            = azurerm_resource_group.aks.location
 }
 
+resource "azuread_group" "aks_cluster_admins" {
+  display_name     = "Flux-ui-cluster-admins"
+  owners           = [data.azurerm_client_config.current.object_id]
+  security_enabled = true
+
+  members = [
+    data.azurerm_client_config.current.object_id,
+  ]
+}
 # data "azurerm_kubernetes_service_versions" "current" {
 #   location        = "West Europe"
 #   include_preview = true
@@ -74,11 +83,11 @@ module "flux_ui" {
   network_policy = "calico"
 
   ## Azure Active Directory
-  local_account_disabled = true
-  aad_rbac_enabled       = true ## Enable the feature for Azure RBAC with AKS
-  aad_rbac_managed       = true ## Manged RBAC
-  aad_azure_rbac_enabled = true ## Azure AAD and Azure RBAC ( No K8s RBAC )
-
+  local_account_disabled           = true
+  aad_rbac_enabled                 = true ## Enable the feature for Azure RBAC with AKS
+  aad_rbac_managed                 = true ## Manged RBAC
+  aad_azure_rbac_enabled           = true ## Azure AAD and Azure RBAC ( No K8s RBAC )
+  aad_rbac_managed_admin_group_ids = [azuread_group.aks_cluster_admins.object_id]
 
   ## Workload Identity
   workload_identity_enabled = true
@@ -93,9 +102,6 @@ module "flux_ui" {
   fluxcd_scope                                   = "cluster"
   fluxcd_git_repository_url                      = "https://github.com/ishuar/kubernetes-projects"
   fluxcd_git_repository_sync_interval_in_seconds = 60
-  fluxcd_extension_configuration_settings = {
-    "multiTenancy.enforce" = false
-  }
 
   kustomizations = [
     {
