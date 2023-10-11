@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - externalSecret.yaml
   - source.yaml
-  - weave-gitops-dashboard.yaml
+  - release.yaml
 namespace: flux ## over-rides namespace in all resources associated with it.

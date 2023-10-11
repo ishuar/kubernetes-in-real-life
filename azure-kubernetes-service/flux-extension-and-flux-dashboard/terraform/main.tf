@@ -113,8 +113,8 @@ module "flux_dashboard" {
       depends_on               = ["infrastructure"]
     },
     {
-      name                     = "weave-flux-ui"
-      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/weave-flux-ui"
+      name                     = "weave-gitops-flux-ui"
+      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/weave-gitops"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure", "external-secrets-store", "cluster-issuer"]
     },

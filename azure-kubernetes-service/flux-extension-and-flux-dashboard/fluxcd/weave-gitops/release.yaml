@@ -14,6 +14,7 @@ spec:
         kind: HelmRepository
         name: weave-gitops-flux-ui
         namespace: flux
+      version: 4.0.31
   interval: 1h0m0s
   values:
     logLevel: debug
