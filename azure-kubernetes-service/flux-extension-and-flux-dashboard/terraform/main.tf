@@ -13,11 +13,11 @@ module "ssh_key_generator" {
 
 ##* Managed Identity is required for Vnet-Api Integration
 
-# Error: creating Kubernetes Cluster (Subscription: "c5bcdb0e-4322-4305-8f70-fc66eff37c1a"
-# Resource Group Name: "rg-kubernetes-projects"
-# Kubernetes Cluster Name: "container-registry-kubernetes-projects"): managedclusters.ManagedClustersClient#CreateOrUpdate: Failure sending request: StatusCode=0 --
-# Original Error: Code="OnlySupportedOnUserAssignedMSICluster" Message="System-assigned managed identity not supported for custom resource.
-# Please use user-assigned managed identity."
+##! Error: creating Kubernetes Cluster (Subscription: "subscription_id"
+##! Resource Group Name: "rg-kubernetes-projects"
+##! Kubernetes Cluster Name: "flux-dashboard-kubernetes-projects"): managedclusters.ManagedClustersClient#CreateOrUpdate: Failure sending request: StatusCode=0 --
+##! Original Error: Code="OnlySupportedOnUserAssignedMSICluster" Message="System-assigned managed identity not supported for custom resource.
+##! Please use user-assigned managed identity."
 
 resource "azurerm_user_assigned_identity" "aks" {
   name                = "id-aks-docker-registry-${local.tags["github_repo"]}"
@@ -25,35 +25,26 @@ resource "azurerm_user_assigned_identity" "aks" {
   location            = azurerm_resource_group.aks.location
 }
 
-resource "azuread_group" "aks_cluster_admins" {
-  display_name     = "Flux-ui-cluster-admins"
-  owners           = [data.azurerm_client_config.current.object_id]
-  security_enabled = true
-
-  members = [
-    data.azurerm_client_config.current.object_id,
-  ]
+data "azurerm_kubernetes_service_versions" "current" {
+  location        = "West Europe"
+  include_preview = true ## not recommened ## 😬
 }
-# data "azurerm_kubernetes_service_versions" "current" {
-#   location        = "West Europe"
-#   include_preview = true
-# }
 
 ## FluxCD enabled Azure Kubernetes Cluster
 ## ? ref : https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2?tabs=azure-cli#for-azure-kubernetes-service-clusters
 
-module "flux_ui" {
+module "flux_dashboard" {
   source  = "ishuar/aks/azure"
   version = "1.6.0"
 
 
   location            = azurerm_resource_group.aks.location
   resource_group_name = azurerm_resource_group.aks.name
-  name                = "container-registry-${local.tags["github_repo"]}"
-  dns_prefix          = "fluxaks"
+  name                = "flux-dashboard-${local.tags["github_repo"]}"
+  dns_prefix          = "fluxdashboard"
   key_data            = trimspace(module.ssh_key_generator.public_ssh_key)
-  # kubernetes_version  = azurerm_kubernetes_service_versions.current.latest_version
-  tags = local.tags
+  kubernetes_version  = data.azurerm_kubernetes_service_versions.current.latest_version
+  tags                = local.tags
 
   ## Identity
   identity_type = "UserAssigned"
@@ -79,8 +70,8 @@ module "flux_ui" {
   service_cidrs       = ["100.1.0.0/16"]
   pod_cidrs           = ["100.2.0.0/16"]
   dns_service_ip      = "100.1.0.100"
+  network_policy      = "calico"
   # ebpf_data_plane     = "cilium"
-  network_policy = "calico"
 
   ## Azure Active Directory
   local_account_disabled           = true
@@ -128,7 +119,7 @@ module "flux_ui" {
       depends_on               = ["infrastructure", "external-secrets-store", "cluster-issuer"]
     },
   ]
-  ### This is experimental only Feature
+  ## This is experimental only Feature
   enable_fluxcd_az_providers = true
 }
 

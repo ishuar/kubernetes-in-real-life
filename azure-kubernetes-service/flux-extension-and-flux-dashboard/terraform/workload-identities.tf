@@ -12,7 +12,7 @@ resource "azurerm_federated_identity_credential" "this" {
   name                = "federated-external-secrets-operator"
   resource_group_name = azurerm_resource_group.aks.name
   audience            = ["api://AzureADTokenExchange"]
-  issuer              = module.flux_ui.azurerm_kubernetes_cluster.oidc_issuer_url
+  issuer              = module.flux_dashboard.azurerm_kubernetes_cluster.oidc_issuer_url
   parent_id           = azurerm_user_assigned_identity.this[each.value].id
   subject             = "system:serviceaccount:${local.flux_manifests_namespace}:sa-${each.value}"
 }

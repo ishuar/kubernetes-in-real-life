@@ -2,6 +2,10 @@
 
 ##? HINT: It might be easier to create the emtpty app and adjust in portal and import the changes from plan diff.
 ##? Check Enterprise Application for Sign in Logs
+
+resource "random_uuid" "flux_aad_app" {}
+
+## Create App registration
 resource "azuread_application" "flux_ui" {
   display_name     = "flux-dashboard-oidc"
   owners           = [data.azurerm_client_config.current.object_id]
@@ -62,14 +66,40 @@ resource "azuread_application" "flux_ui" {
       type = "Scope"
     }
   }
+  app_role {
+    allowed_member_types = ["User"]
+    description          = "flux oidc admins "
+    display_name         = "flux-oidc-admins"
+    enabled              = true
+    id                   = random_uuid.flux_aad_app.result
+    value                = "admin"
+  }
 }
 
-
+## Create Service Principal
 resource "azuread_service_principal" "flux_ui" {
   application_id               = azuread_application.flux_ui.application_id
   app_role_assignment_required = false
   owners                       = [data.azurerm_client_config.current.object_id]
   notes                        = "This SPN is used for flux-dashboard-oidc in ${local.tags["github_repo"]} github repo in ${local.tags["directory_level"]} sub project"
+}
+
+## Create group for admins
+resource "azuread_group" "aks_cluster_admins" {
+  display_name     = "Flux-ui-cluster-admins"
+  owners           = [data.azurerm_client_config.current.object_id]
+  security_enabled = true
+
+  members = [
+    data.azurerm_client_config.current.object_id,
+  ]
+}
+
+## Assign role to admins for the app registration / Add groups to the service principal
+resource "azuread_app_role_assignment" "flux_ui" {
+  app_role_id         = azuread_service_principal.flux_ui.app_role_ids["admin"]
+  principal_object_id = azuread_group.aks_cluster_admins.object_id
+  resource_object_id  = azuread_service_principal.flux_ui.object_id
 }
 
 resource "azuread_service_principal_password" "flux_ui" {
