@@ -6,3 +6,4 @@ resources:
 - ./external-secrets-operator
 - ./cert-manager
 - ./external-dns
+- ./storageClasses
