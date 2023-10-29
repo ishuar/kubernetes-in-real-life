@@ -35,7 +35,7 @@ data "azurerm_kubernetes_service_versions" "current" {
 
 module "flux_dashboard" {
   source  = "ishuar/aks/azure"
-  version = "1.6.0"
+  version = "2.2.0"
 
 
   location            = azurerm_resource_group.aks.location
@@ -97,24 +97,24 @@ module "flux_dashboard" {
   kustomizations = [
     {
       name                     = "infrastructure"
-      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/infrastructure"
+      path                     = "./azure-kubernetes-service/fluxcd/infrastructure"
       sync_interval_in_seconds = 60
     },
     {
       name                     = "external-secrets-store"
-      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/secret-store"
+      path                     = "./azure-kubernetes-service/fluxcd/secret-store"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure"]
     },
     {
       name                     = "cluster-issuer"
-      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/cluster-issuer"
+      path                     = "./azure-kubernetes-service/fluxcd/cluster-issuer"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure"]
     },
     {
       name                     = "weave-gitops-flux-ui"
-      path                     = "./azure-kubernetes-service/flux-extension-and-flux-dashboard/fluxcd/weave-gitops"
+      path                     = "./azure-kubernetes-service/fluxcd/weave-gitops"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure", "external-secrets-store", "cluster-issuer"]
     },

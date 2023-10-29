@@ -1,0 +1,16 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: kube-prometheus-stack
+  annotations:
+    metadata.weave.works/description: This is the source location for the kube-prometheus-stack helm chart.
+  labels:
+    app.kubernetes.io/component: HelmRepository
+    app.kubernetes.io/name: kube-prometheus-stack
+    app.kubernetes.io/part-of: observability
+    app.kubernetes.io/used-case: metrics-collection-and-visualization
+spec:
+  interval: 30m
+  type: oci
+  ##? OCI reference: https://github.com/prometheus-community/helm-charts/blob/84ab6297ac99330cf3dc3d9c68d811172582acaa/.github/workflows/release.yaml#L60C33-L60C80
+  url: oci://ghcr.io/prometheus-community/charts
