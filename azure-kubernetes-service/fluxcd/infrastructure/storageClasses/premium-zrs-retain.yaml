@@ -1,0 +1,15 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  # annotations:
+  #   helm.sh/resource-policy: keep ## to keep the pv after uninstalling the helm chart
+  name: premium-zrs-retain
+provisioner: disk.csi.azure.com
+##? ref:https://github.com/kubernetes-sigs/azuredisk-csi-driver/blob/master/docs/driver-parameters.md
+parameters:
+  skuName: Premium_ZRS
+  fsType: xfs
+  cachingMode: ReadOnly
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
