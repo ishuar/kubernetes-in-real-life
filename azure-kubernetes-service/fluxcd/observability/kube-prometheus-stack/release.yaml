@@ -33,6 +33,8 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
+          nginx.ingress.kubernetes.io/auth-type: basic
+          nginx.ingress.kubernetes.io/auth-secret: kube-prom-stack-basic-auth
           cert-manager.io/cluster-issuer: 'letsencrypt-prod'
         hosts:
           - alertmanager.k8s.learndevops.in
@@ -136,6 +138,8 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
+          nginx.ingress.kubernetes.io/auth-type: basic
+          nginx.ingress.kubernetes.io/auth-secret: kube-prom-stack-basic-auth
           cert-manager.io/cluster-issuer: 'letsencrypt-prod'
         hosts:
           - prometheus.k8s.learndevops.in

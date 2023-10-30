@@ -37,10 +37,11 @@ resource "random_password" "grafana_admin_password" {
 # ##? depends on current objectID azure RBAC on kV
 resource "azurerm_key_vault_secret" "subscription_and_tenant_id" {
   for_each = {
-    subscriptionid         = data.azurerm_client_config.current.subscription_id
-    tenantid               = data.azurerm_client_config.current.tenant_id
-    grafana-admin-user     = "admin"
-    grafana-admin-password = random_password.grafana_admin_password.result
+    subscriptionid                  = data.azurerm_client_config.current.subscription_id
+    tenantid                        = data.azurerm_client_config.current.tenant_id
+    grafana-admin-user              = "admin"
+    grafana-admin-password          = random_password.grafana_admin_password.result
+    kube-prom-stack-basic-auth-data = "admin:$apr1$d1RF45nH$YC0/598/voaRA/4vhw9T6/" ##! encrypted (!! Hint ::Think:: !! )
   }
 
   name         = each.key

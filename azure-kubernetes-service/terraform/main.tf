@@ -20,7 +20,7 @@ module "ssh_key_generator" {
 ##! Please use user-assigned managed identity."
 
 resource "azurerm_user_assigned_identity" "aks" {
-  name                = "id-aks-docker-registry-${local.tags["github_repo"]}"
+  name                = "id-${local.tags["github_repo"]}-fluxcd"
   resource_group_name = azurerm_resource_group.aks.name
   location            = azurerm_resource_group.aks.location
 }
@@ -40,8 +40,8 @@ module "flux_dashboard" {
 
   location            = azurerm_resource_group.aks.location
   resource_group_name = azurerm_resource_group.aks.name
-  name                = "flux-dashboard-${local.tags["github_repo"]}"
-  dns_prefix          = "fluxdashboard"
+  name                = "${local.tags["github_repo"]}-fluxcd"
+  dns_prefix          = "aks-fluxcd"
   key_data            = trimspace(module.ssh_key_generator.public_ssh_key)
   kubernetes_version  = data.azurerm_kubernetes_service_versions.current.latest_version
   tags                = local.tags
@@ -87,7 +87,7 @@ module "flux_dashboard" {
   ## Flux
   enable_fluxcd                                  = true
   fluxcd_extension_name                          = "fluxcd"
-  fluxcd_configuration_name                      = "flux-ui-dashboard"
+  fluxcd_configuration_name                      = "aks-project"
   fluxcd_extension_release_namespace             = "flux-system"
   fluxcd_namespace                               = local.flux_manifests_namespace ##?This Namespace should be used in k8s manifests sync with AKS fluxCD when multi tenancy is enabled.
   fluxcd_scope                                   = "cluster"
