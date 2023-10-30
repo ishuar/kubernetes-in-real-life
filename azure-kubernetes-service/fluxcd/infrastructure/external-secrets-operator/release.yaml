@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: external-secrets-operator
         namespace: flux
-      version: 0.9.5
+      version: 0.9.7
   install:
     crds: CreateReplace
   upgrade:
