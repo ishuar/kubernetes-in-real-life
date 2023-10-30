@@ -25,6 +25,9 @@ spec:
   values:
     commonLabels:
       app.kubernetes.io/used-case: metrics-collection-and-visualization
+    #################
+    ## ALERT MANAGER #
+    #################
     alertmanager:
       ingress:
         enabled: true
@@ -56,12 +59,72 @@ spec:
               resources:
                 requests:
                   storage: 2Gi
+    #############
+    ## GRAFANA ##
+    #############
+    ## kube-prometheus-stack values for grafana : https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml#L900
+    ## default values from official Chart https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
     grafana:
-      enabled: false
-      forceDeployDashboards: true
-      forceDeployDatasources: true
+      enabled: true
+      # forceDeployDashboards: true
+      # forceDeployDatasources: true
       defaultDashboardsTimezone: Europe
+      plugins:
+        - digrich-bubblechart-panel
+        - grafana-clock-panel
+      replicas: 2
+      serviceMonitor:
+        enabled: true
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+        pathType: ImplementationSpecific
+        hosts:
+          - grafana.k8s.learndevops.in
+        tls:
+          - secretName: kube-prom-stack-grafana
+            hosts:
+              - grafana.k8s.learndevops.in
+      resources: {}
+      persistence:
+        enabled: true
+        storageClassName: premium-zrs-retain
+        size: 5Gi
+      admin:
+        existingSecret: grafana-admin
+      ##? Grafana ini (config) : https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#users
+      grafana.ini:
+        users:
+          auto_assign_org_role: Viewer
+      ##? https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/github/
+      #   auth.github:
+      #     enabled: true
+      #     client_id: YOUR_GITHUB_APP_CLIENT_ID
+      #     client_secret: YOUR_GITHUB_APP_CLIENT_SECRET
+      #     scopes: user:email,read:org
+      #     auth_url: https://github.com/login/oauth/authorize
+      #     token_url: https://github.com/login/oauth/access_token
+      #     api_url: https://api.github.com/user
+      #     allow_sign_up: true
+      #     auto_login: false
+      #     team_ids: GrafanaAdmin
+      #     allowed_organizations: ["learndevopsdotin"]
+      #     # role_attribute_path: [login=='octocat'][0] && GrafanaAdmin || Viewer
+      sidecar:
+        logLevel: WARN
+        resources: {}
+        ## TODO: Investigate this side car config
+        ### Look for the label and its value on the configmaps and add them to grafana visualisation.
+        dashboards:
+          enabled: true
+          label: grafana_dashboard  # Default label on the kube-prometheus-stack deployed dashboards ( upsteam default too )
+          labelValue: 1
 
+    ################
+    ## PROMETHEUS #
+    ################
     prometheusOperator:
       admissionWebhooks:
         # Use certmanager to generate webhook certs
