@@ -37,11 +37,9 @@ spec:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+      pathType: ImplementationSpecific
       hosts:
-        - host: grafana.k8s.learndevops.in
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
+        - grafana.k8s.learndevops.in
       tls:
         - secretName: kube-prom-stack-grafana
           hosts:
