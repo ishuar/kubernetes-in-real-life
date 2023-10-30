@@ -1,14 +1,14 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: kube-prometheus-stack
+  name: prometheus-community
   annotations:
     metadata.weave.works/description: This is the source location for the kube-prometheus-stack helm chart.
   labels:
     app.kubernetes.io/component: HelmRepository
-    app.kubernetes.io/name: kube-prometheus-stack
+    app.kubernetes.io/name: prometheus-community
     app.kubernetes.io/part-of: observability
-    app.kubernetes.io/used-case: metrics-collection-and-visualization
+    app.kubernetes.io/used-case: scrapingMetrics-alerting-and-visualization
 spec:
   interval: 30m
   type: oci

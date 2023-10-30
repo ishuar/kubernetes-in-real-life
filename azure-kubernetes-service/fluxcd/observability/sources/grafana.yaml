@@ -1,14 +1,14 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: promtail
+  name: grafana
   annotations:
     metadata.weave.works/description: This is the source location for the promtail helm chart.
   labels:
     app.kubernetes.io/component: HelmRepository
-    app.kubernetes.io/name: promtail
+    app.kubernetes.io/name: grafana
     app.kubernetes.io/part-of: observability
-    app.kubernetes.io/used-case: logging
+    app.kubernetes.io/used-case: visualization-logging
 spec:
   interval: 30m
   url: https://grafana.github.io/helm-charts

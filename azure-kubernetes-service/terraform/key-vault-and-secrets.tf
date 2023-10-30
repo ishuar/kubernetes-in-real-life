@@ -26,13 +26,21 @@ resource "azurerm_role_assignment" "kv_rbac" {
 # #######
 # ## SECRETS TO KV
 # #######
+resource "random_password" "grafana_admin_password" {
+  length           = 32
+  min_upper        = 1
+  min_special      = 1
+  override_special = "!#$%&*@"
+}
 
 # ##? Update KV with the app registration secretIds
 # ##? depends on current objectID azure RBAC on kV
 resource "azurerm_key_vault_secret" "subscription_and_tenant_id" {
   for_each = {
-    subscriptionid = data.azurerm_client_config.current.subscription_id
-    tenantid       = data.azurerm_client_config.current.tenant_id
+    subscriptionid         = data.azurerm_client_config.current.subscription_id
+    tenantid               = data.azurerm_client_config.current.tenant_id
+    grafana-admin-user     = "admin"
+    grafana-admin-password = random_password.grafana_admin_password.result
   }
 
   name         = each.key
