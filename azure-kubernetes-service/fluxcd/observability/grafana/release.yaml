@@ -73,7 +73,8 @@ spec:
       logLevel: WARN
       resources: {}
       ## TODO: Investigate this side car config
-      ### Look for the label on the configmaps and add them grafana visualisation.
+      ### Look for the label and its value on the configmaps and add them to grafana visualisation.
       dashboards:
         enabled: true
-        label: grafana/dashboard
+        label: grafana_dashboard  # Default label on the kube-prometheus-stack deployed dashboards ( upsteam default too )
+        labelValue: 1             # Default label value on the kube-prometheus-stack deployed dashboards
