@@ -58,7 +58,9 @@ spec:
                   storage: 2Gi
     grafana:
       enabled: false
-      # defaultDashboardsTimezone: Europe
+      forceDeployDashboards: true
+      forceDeployDatasources: true
+      defaultDashboardsTimezone: Europe
 
     prometheusOperator:
       admissionWebhooks:
