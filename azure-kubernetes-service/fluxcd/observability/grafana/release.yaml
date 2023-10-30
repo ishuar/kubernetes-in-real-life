@@ -52,7 +52,7 @@ spec:
       storageClassName: premium-zrs-retain
       size: 5Gi
     admin:
-    existingSecret: grafana-admin
+      existingSecret: grafana-admin
     ##? Grafana ini (config) : https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#users
     grafana.ini:
       users:
