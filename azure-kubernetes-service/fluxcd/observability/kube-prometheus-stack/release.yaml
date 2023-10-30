@@ -32,10 +32,10 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: 'letsencrypt-prod'
         hosts:
-          - host: alertmanager.k8s.learndevops.in
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
+          - alertmanager.k8s.learndevops.in
+        paths:
+          - "/"
+        pathType: ImplementationSpecific
         tls:
           - secretName: kube-prometheus-stack
             hosts:
@@ -74,13 +74,13 @@ spec:
           cert-manager.io/cluster-issuer: 'letsencrypt-prod'
         hosts:
           - host: prometheus.k8s.learndevops.in
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
         tls:
           - secretName: kube-prometheus-stack
             hosts:
               - prometheus.k8s.learndevops.in
+        paths:
+          - "/"
+        pathType: ImplementationSpecific
       prometheusSpec:
         logFormat: json
         # priorityClassName: <CREATE_PRIORITY_CLASS>
