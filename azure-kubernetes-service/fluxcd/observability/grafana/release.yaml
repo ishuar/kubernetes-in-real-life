@@ -72,4 +72,8 @@ spec:
     sidecar:
       logLevel: WARN
       resources: {}
-      # dashboards: ## TODO: Investigate this side car config
+      ## TODO: Investigate this side car config
+      ### Look for the label on the configmaps and add them grafana visualisation.
+      dashboards:
+        enabled: true
+        label: grafana/dashboard
