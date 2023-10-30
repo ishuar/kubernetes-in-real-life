@@ -73,7 +73,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: 'letsencrypt-prod'
         hosts:
-          - host: prometheus.k8s.learndevops.in
+          - prometheus.k8s.learndevops.in
         tls:
           - secretName: kube-prometheus-stack
             hosts:
