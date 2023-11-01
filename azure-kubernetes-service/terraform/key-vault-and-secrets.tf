@@ -42,6 +42,7 @@ resource "azurerm_key_vault_secret" "subscription_and_tenant_id" {
     grafana-admin-user              = "admin"
     grafana-admin-password          = random_password.grafana_admin_password.result
     kube-prom-stack-basic-auth-data = "admin:$apr1$d1RF45nH$YC0/598/voaRA/4vhw9T6/" ##! encrypted (!! Hint ::Think:: !! )
+    discord-webhook-url             = var.ALERTMANAGER_DISCORD_CHANNEL_RECEIVER_URL
   }
 
   name         = each.key

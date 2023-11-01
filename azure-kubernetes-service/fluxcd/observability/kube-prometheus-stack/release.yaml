@@ -58,11 +58,23 @@ spec:
           - secretName: kube-prometheus-stack
             hosts:
               - alertmanager.k8s.learndevops.in
+      config:
+        receivers:
+        - name: 'null'
+        - name: discord-prom-stack
+          webhook_config:
+            url_file: /etc/alertmanager/secrets/discord-webhook-url ## mounted as secret to alertmanager (alertmanager.alertmanagerSpec.secrets)
+            max_alerts: 2
+        templates:
+        - '/etc/alertmanager/config/*.tmpl'
+
       podDisruptionBudget:
         enabled: true
         minAvailable: 1
 
       alertmanagerSpec:
+        secrets:
+            - discord-webhook-url
         replicas: 2 ## if replica is 1 it is a deadlock due to PDB
         logFormat: json ## better for parsing
         resources: {}

@@ -1,0 +1,20 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: discord-webhook-url
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: azure-cluster-secret-store
+  target:
+    name: discord-webhook-url
+    template:
+      engineVersion: v2
+      data:
+        discord-webhook-url: "{{ .discordWebhookUrl }}"
+  data:
+  - secretKey: discordWebhookUrl
+    remoteRef:
+      key: discord-webhook-url
