@@ -5,4 +5,5 @@ resources:
   - grafana-admin-externalSecret.yaml
   - basic-auth-externalSecret.yaml
   - discord-webhook-url.yaml
+  - alertmanager-config-tpl.yaml
 namespace: flux ## over-rides namespace in all resources associated with it.
