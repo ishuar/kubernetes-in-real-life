@@ -46,7 +46,7 @@ data:
     - name: null
     - name: discord
       discord_config:
-        webhook_url: {{ .discordWebhookUrl }}
+        webhook_url: "{{ .discordWebhookUrl }}"
         send_resolved: true
     templates:
     - /etc/alertmanager/config/*.tmpl
