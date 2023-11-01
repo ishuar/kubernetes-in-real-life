@@ -78,9 +78,10 @@ spec:
 
       alertmanagerSpec:
         useExistingSecret: true
+        ##TODO: Not sure secrets vs configSecret
         secrets:
           - discord-webhook-url
-
+        configSecret: discord-webhook-url
         replicas: 2 ## if replica is 1 it is a deadlock due to PDB
         logFormat: json ## better for parsing
         resources: {}
