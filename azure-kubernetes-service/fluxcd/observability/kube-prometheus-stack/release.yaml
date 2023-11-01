@@ -23,6 +23,19 @@ spec:
     crds: CreateReplace
   ## https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack?modal=values
   values:
+
+  ## As the AKS is a managed services control plane components are not available for scraping.
+  ##? ref: https://github.com/prometheus-community/helm-charts/issues/1704#issuecomment-1016516500
+    kubeEtcd:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      service:
+        selector:
+          component: kube-proxy ## label on aks kube-proxy pod
     commonLabels:
       app.kubernetes.io/used-case: metrics-collection-and-visualization
     #################
