@@ -57,7 +57,7 @@ spec:
           - "/"
         pathType: ImplementationSpecific
         tls:
-          - secretName: kube-prometheus-stack
+          - secretName: kube-prom-stack-alertmanager-tls-cert
             hosts:
               - alertmanager.k8s.learndevops.in
       config:
@@ -75,8 +75,6 @@ spec:
         minAvailable: 1
 
       alertmanagerSpec:
-        secrets:
-            - discord-webhook-url
         replicas: 2 ## if replica is 1 it is a deadlock due to PDB
         logFormat: json ## better for parsing
         resources: {}
@@ -88,6 +86,10 @@ spec:
               resources:
                 requests:
                   storage: 2Gi
+        alertmanagerConfigSelector:
+          matchLabels:
+            component: alertmanager
+            used_case: discord-webhook-url
     #############
     ## GRAFANA ##
     #############
@@ -113,7 +115,7 @@ spec:
         hosts:
           - grafana.k8s.learndevops.in
         tls:
-          - secretName: kube-prom-stack-grafana
+          - secretName: kube-prom-stack-grafana-tls-cert
             hosts:
               - grafana.k8s.learndevops.in
       resources: {}
@@ -171,7 +173,7 @@ spec:
         hosts:
           - prometheus.k8s.learndevops.in
         tls:
-          - secretName: kube-prometheus-stack
+          - secretName: kube-prom-stack-prometheus-tls-cert
             hosts:
               - prometheus.k8s.learndevops.in
         paths:
