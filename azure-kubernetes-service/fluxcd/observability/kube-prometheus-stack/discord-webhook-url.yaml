@@ -17,12 +17,10 @@ spec:
     template:
       engineVersion: v2
       templateFrom:
-        - target: Data
-          configMap:
+        - configMap:
             name: alertmanager-config-tpl
             items:
-              - key: alertmanager.yaml
-                templateAs: KeysAndValues
+            - key: alertmanager.yaml
   data:
   - secretKey: discordWebhookUrl
     remoteRef:
