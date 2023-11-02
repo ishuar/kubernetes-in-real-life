@@ -9,23 +9,23 @@ data:
       resolve_timeout: 5m
     inhibit_rules:
       - source_matchers:
-          - severity = critical
+          - severity="critical"
         target_matchers:
-          - severity =~ warning|info
+          - severity=~"warning|info"
         equal:
           - namespace
           - alertname
       - source_matchers:
-          - severity = warning
+          - severity=warning
         target_matchers:
-          - severity = info
+          - severity="info"
         equal:
           - namespace
           - alertname
       - source_matchers:
-          - alertname = InfoInhibitor
+          - alertname="InfoInhibitor"
         target_matchers:
-          - severity = info
+          - severity=info
         equal:
           - namespace
     route:
@@ -37,11 +37,11 @@ data:
       routes:
         - receiver: "null"
           matchers:
-            - alertname =~ "InfoInhibitor|Watchdog"
+            - alertname=~"InfoInhibitor|Watchdog"
         - receiver: discord
           matchers:
-            - severity=critical
-            - severity=warning
+            - severity="critical"
+            - severity="warning"
     receivers:
       - name: "null"
       - name: discord
