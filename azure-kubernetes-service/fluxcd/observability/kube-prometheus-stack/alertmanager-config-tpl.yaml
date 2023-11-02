@@ -40,8 +40,7 @@ data:
             - alertname=~"InfoInhibitor|Watchdog"
         - receiver: discord
           matchers:
-            - severity="critical"
-            - severity="warning"
+            - severity=~"warning|critical"
     receivers:
       - name: "null"
       - name: discord
