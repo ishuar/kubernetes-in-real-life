@@ -16,6 +16,6 @@ spec:
             environment: AzurePublicCloud
             hostedZoneName: k8s.learndevops.in
             resourceGroupName: rg-kubernetes-projects
-            subscriptionID: c5bcdb0e-4322-4305-8f70-fc66eff37c1a
+            subscriptionID: df30c82e-30e4-4ab5-80ce-8d4aef10990d
             managedIdentity:
               clientID: 15eeb354-decf-4282-95f7-079efe464f87

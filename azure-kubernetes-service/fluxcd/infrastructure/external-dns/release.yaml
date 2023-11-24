@@ -38,7 +38,7 @@ spec:
       data:
         azure.json: |
           {
-            "subscriptionId": "c5bcdb0e-4322-4305-8f70-fc66eff37c1a",
+            "subscriptionId": "df30c82e-30e4-4ab5-80ce-8d4aef10990d",
             "resourceGroup": "rg-kubernetes-projects",
             "useWorkloadIdentityExtension": true
           }
