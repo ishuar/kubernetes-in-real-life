@@ -53,7 +53,7 @@ module "flux_dashboard" {
   ## Default node pool
   default_node_pool_name                = "system"
   default_node_pool_enable_auto_scaling = true
-  default_node_pool_vm_size             = "standard_d2ds_v5"
+  default_node_pool_vm_size             = "standard_ds2_v2" ## "standard_d2ds_v5" not available in free trial azure
   default_node_pool_min_count           = 1
   default_node_pool_max_count           = 2
   default_node_pool_max_pods            = 110
@@ -127,6 +127,10 @@ module "flux_dashboard" {
   ]
   ## This is experimental only Feature
   enable_fluxcd_az_providers = true
+
+depends_on = [
+  azapi_resource_action.container_service_provider_registration
+ ]
 }
 
 ## In case not able to delete aks extension.

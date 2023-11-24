@@ -6,7 +6,7 @@
 resource "random_uuid" "flux_aad_app" {}
 
 ## Create App registration
-resource "azuread_application" "flux_ui" {
+resource "azuread_application" "flux_dashboard" {
   display_name     = "flux-dashboard-oidc"
   owners           = [data.azurerm_client_config.current.object_id]
   sign_in_audience = "AzureADMyOrg"
@@ -18,9 +18,7 @@ resource "azuread_application" "flux_ui" {
       id_token_issuance_enabled     = false
     }
   }
-  identifier_uris = [
-    "api://6c74d507-7549-41da-bd34-c7d445facad1",
-  ]
+
   group_membership_claims = [
     "ApplicationGroup",
   ]
@@ -77,8 +75,8 @@ resource "azuread_application" "flux_ui" {
 }
 
 ## Create Service Principal
-resource "azuread_service_principal" "flux_ui" {
-  application_id               = azuread_application.flux_ui.application_id
+resource "azuread_service_principal" "flux_dashboard" {
+  client_id                    = azuread_application.flux_dashboard.client_id
   app_role_assignment_required = false
   owners                       = [data.azurerm_client_config.current.object_id]
   notes                        = "This SPN is used for flux-dashboard-oidc in ${local.tags["github_repo"]} github repo in ${local.tags["directory_level"]} sub project"
@@ -96,12 +94,12 @@ resource "azuread_group" "aks_cluster_admins" {
 }
 
 ## Assign role to admins for the app registration / Add groups to the service principal
-resource "azuread_app_role_assignment" "flux_ui" {
-  app_role_id         = azuread_service_principal.flux_ui.app_role_ids["admin"]
+resource "azuread_app_role_assignment" "flux_dashboard" {
+  app_role_id         = azuread_service_principal.flux_dashboard.app_role_ids["admin"]
   principal_object_id = azuread_group.aks_cluster_admins.object_id
-  resource_object_id  = azuread_service_principal.flux_ui.object_id
+  resource_object_id  = azuread_service_principal.flux_dashboard.object_id
 }
 
-resource "azuread_service_principal_password" "flux_ui" {
-  service_principal_id = azuread_service_principal.flux_ui.id
+resource "azuread_service_principal_password" "flux_dashboard" {
+  service_principal_id = azuread_service_principal.flux_dashboard.id
 }
