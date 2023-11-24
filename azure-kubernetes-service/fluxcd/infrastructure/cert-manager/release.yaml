@@ -35,6 +35,6 @@ spec:
     serviceAccount:
       name: sa-cert-manager
       annotations:
-        azure.workload.identity/client-id: 15eeb354-decf-4282-95f7-079efe464f87
+        azure.workload.identity/client-id: 1e86013b-ac0d-4cdd-8f53-20efa4bdbc39
       labels:
         azure.workload.identity/use: "true"
