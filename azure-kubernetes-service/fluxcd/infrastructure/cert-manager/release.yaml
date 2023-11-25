@@ -20,6 +20,7 @@ spec:
   dependsOn:
   - name: external-secrets-operator
     namespace: flux
+  ## https://artifacthub.io/packages/helm/cert-manager/cert-manager/1.13.0?modal=values
   values:
     installCRDs: true
     extraArgs:
@@ -35,6 +36,6 @@ spec:
     serviceAccount:
       name: sa-cert-manager
       annotations:
-        azure.workload.identity/client-id: 1e86013b-ac0d-4cdd-8f53-20efa4bdbc39
+        azure.workload.identity/client-id: aeef2603-0dae-4649-9761-b38bfd176869
       labels:
         azure.workload.identity/use: "true"

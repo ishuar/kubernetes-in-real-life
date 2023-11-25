@@ -17,13 +17,13 @@ spec:
   upgrade:
     crds: CreateReplace
   interval: 5m
-  # https://github.com/external-secrets/external-secrets/blob/main/deploy/charts/external-secrets/values.yaml
+  # https://artifacthub.io/packages/helm/external-secrets-operator/external-secrets?modal=values
   values:
     serviceAccount:
       name: sa-external-secrets-operator
       create: true
       annotations:
-        azure.workload.identity/client-id: 715ac7ef-799b-4330-9e3f-a5bdd5c0400a
+        azure.workload.identity/client-id: 2c32b29e-cca6-448a-9db5-5ce3ba5456a7
         azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
     podLabels:
       azure.workload.identity/use: "true"
