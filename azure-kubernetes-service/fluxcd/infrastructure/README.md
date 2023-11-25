@@ -1,8 +1,16 @@
+- [Infrastructure](#infrastructure)
+  - [cert-manager](#cert-manager)
+  - [external-dns](#external-dns)
+  - [external-secrets-operator](#external-secrets-operator)
+  - [ingress-nginx](#ingress-nginx)
+  - [sources](#sources)
+  - [storageClasses](#storageclasses)
+
 # Infrastructure
 
 Within this directory, you'll find essential Kubernetes applications that form the backbone supporting end-user applications in the cluster.
 
-## [cert-manager](./cert-manager/)
+## cert-manager
 
 This directory contains `cert-manager` helm release configurations.
 
@@ -10,9 +18,9 @@ This directory contains `cert-manager` helm release configurations.
 
 It is installed using the official helm chart [cert-manager](https://artifacthub.io/packages/helm/cert-manager/cert-manager/1.13.0).
 
-- Official documentation -> [cert-manager](https://cert-manager.io/docs/)
+- Official documentation: [cert-manager](https://cert-manager.io/docs/)
 
-## [external-dns](./external-dns/)
+## external-dns
 
 
 This directory contains `ExternalDNS` helm release configurations.
@@ -21,9 +29,9 @@ This directory contains `ExternalDNS` helm release configurations.
 
 It is installed using official helm chart [external-dns](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns)
 
-- Official documentation -> [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)
+- Official documentation: [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)
 
-## [external-secrets-operator](./external-secrets-operator/)
+## external-secrets-operator
 
 This directory contains `External Secrets Operator` helm release configurations.
 
@@ -31,9 +39,9 @@ This directory contains `External Secrets Operator` helm release configurations.
 
 It is installed using official helm chart [external-secrets](https://artifacthub.io/packages/helm/external-secrets-operator/external-secrets)
 
-- Official documentation -> [External Secrets Operator](https://external-secrets.io/latest/)
+- Official documentation: [External Secrets Operator](https://external-secrets.io/latest/)
 
-## [ingress-nginx](./nginx-ingress/)
+## ingress-nginx
 
 
 This directory contains `ingress-nginx` helm release configurations.
@@ -47,17 +55,17 @@ More details are [here]((https://www.nginx.com/resources/glossary/kubernetes-ing
 
 It is installed using official helm chart [ingress-nginx](https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx)
 
-- Official documentation -> [ingress-nginx](https://kubernetes.github.io/ingress-nginx/how-it-works/)
+- Official documentation: [ingress-nginx](https://kubernetes.github.io/ingress-nginx/how-it-works/)
 
-## [sources](./sources/)
+## sources
 
 This directory contains the flux sources for the helm releases of the above applications.
 
-- Official documentation -> [flux-source-controller](https://fluxcd.io/flux/components/source/)
+- Official documentation: [flux-source-controller](https://fluxcd.io/flux/components/source/)
 
-## [storageClasses](./storageClasses/)
+## storageClasses
 
 This section contains custom storage classes for applications, offering different configurations than the default for new storage classes.
 
-- Official documentation -> [storageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/)
-- AKS Storage Classes -> [AKS storageClasses](https://learn.microsoft.com/en-us/azure/aks/concepts-storage#storage-classes)
+- Official documentation: [storageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/)
+- AKS Storage Classes: [AKS storageClasses](https://learn.microsoft.com/en-us/azure/aks/concepts-storage#storage-classes)
