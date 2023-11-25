@@ -1,8 +1,9 @@
 #! /usr/bin/env bash
 
-## This script will get the latest clientIDs for cert-manager, external-dns and external-secret-operator
-## from terraform ouputs and update the respective files , so that infra can be recreated and no manual changees
-## should be made.
+##* This script will get the latest clientIDs for cert-manager, external-dns and external-secret-operator
+##* from terraform ouputs and update the respective files , so that infra can be recreated and no manual changees
+##* should be made. This script should be ran once terraform apply is successful and then need to be pushed to github repo.
+##! terraform , jq and yq are required to run this script.
 
 
 CURRENT_DIR="$(pwd)"
