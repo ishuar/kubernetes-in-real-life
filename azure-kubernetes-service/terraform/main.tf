@@ -97,30 +97,30 @@ module "flux_dashboard" {
   kustomizations = [
     {
       name                     = "infrastructure"
-      path                     = "./azure-kubernetes-service/fluxcd/infrastructure"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/infrastructure"
       sync_interval_in_seconds = 60
     },
     {
       name                     = "external-secrets-store"
-      path                     = "./azure-kubernetes-service/fluxcd/secret-store"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/secret-store"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure"]
     },
     {
       name                     = "cluster-issuer"
-      path                     = "./azure-kubernetes-service/fluxcd/cluster-issuer"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/cluster-issuer"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure"]
     },
     {
       name                     = "observability"
-      path                     = "./azure-kubernetes-service/fluxcd/observability"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/observability"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure", "external-secrets-store", "cluster-issuer"]
     },
     {
       name                     = "weave-gitops-flux-ui"
-      path                     = "./azure-kubernetes-service/fluxcd/weave-gitops"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/weave-gitops"
       sync_interval_in_seconds = 60
       depends_on               = ["infrastructure", "external-secrets-store", "cluster-issuer"]
     },

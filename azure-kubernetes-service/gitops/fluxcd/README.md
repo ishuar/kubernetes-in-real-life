@@ -1,6 +1,6 @@
 - [fluxcd](#fluxcd)
   - [FluxCD Configurations](#fluxcd-configurations)
-  - [Directory Structure](#directory-structure)
+- [Directory Structure](#directory-structure)
     - [cluster-issuer](#cluster-issuer)
     - [infrastructure](#infrastructure)
     - [observability](#observability)
@@ -22,7 +22,7 @@ Multitenancy is enabled by default for FluxCD in Azure kubernetes Services. Ther
 
 - Official Documentation: [Deploy applications using GitOps with Flux v2](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2?tabs=azure-cli)
 
-## Directory Structure
+# Directory Structure
 
 ### [cluster-issuer](./cluster-issuer/)
 
