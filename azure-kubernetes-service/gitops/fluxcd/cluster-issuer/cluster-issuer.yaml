@@ -18,4 +18,4 @@ spec:
             resourceGroupName: rg-kubernetes-projects
             subscriptionID: df30c82e-30e4-4ab5-80ce-8d4aef10990d
             managedIdentity:
-              clientID: "8ca2a1b8-4dd2-45d8-8398-4f8f336311ef"
+              clientID: "e198ec7b-bde2-458a-974b-23b55071e85a"
