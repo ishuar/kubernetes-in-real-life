@@ -1,0 +1,4 @@
+## Example Tfvars file to over-ride default
+
+secret_management_key_vault_name          = "over-ride-value"
+ALERTMANAGER_DISCORD_CHANNEL_RECEIVER_URL = "over-ride-value"

@@ -3,7 +3,7 @@ data "azurerm_subscription" "current" {}
 
 ##? KV is public atm, can plan only from the AKS network.
 resource "azurerm_key_vault" "k8s_flux" {
-  name                       = "k8s-projects-secrets-02"
+  name                       = var.secret_management_key_vault_name
   location                   = azurerm_resource_group.aks.location
   resource_group_name        = azurerm_resource_group.aks.name
   tenant_id                  = data.azurerm_client_config.current.tenant_id
@@ -51,7 +51,7 @@ resource "azurerm_key_vault_secret" "subscription_and_tenant_id" {
   value        = each.value
   depends_on = [
     azurerm_role_assignment.kv_rbac
-   ]
+  ]
 }
 
 #### Application Secret to Key Vault ###
@@ -61,9 +61,9 @@ resource "azurerm_key_vault_secret" "flux_dashboard_client_id" {
   key_vault_id = azurerm_key_vault.k8s_flux.id
   value        = azuread_service_principal.flux_dashboard.client_id
 
-    depends_on = [
+  depends_on = [
     azurerm_role_assignment.kv_rbac
-   ]
+  ]
 }
 
 resource "azurerm_key_vault_secret" "flux_dashboard_client_secret" {
@@ -71,7 +71,7 @@ resource "azurerm_key_vault_secret" "flux_dashboard_client_secret" {
   content_type = "password"
   key_vault_id = azurerm_key_vault.k8s_flux.id
   value        = azuread_service_principal_password.flux_dashboard.value
-    depends_on = [
+  depends_on = [
     azurerm_role_assignment.kv_rbac
-   ]
+  ]
 }

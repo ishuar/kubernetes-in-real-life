@@ -128,9 +128,9 @@ module "flux_dashboard" {
   ## This is experimental only Feature
   enable_fluxcd_az_providers = true
 
-depends_on = [
-  azapi_resource_action.container_service_provider_registration
- ]
+  depends_on = [
+    azapi_resource_action.container_service_provider_registration
+  ]
 }
 
 ## In case not able to delete aks extension.

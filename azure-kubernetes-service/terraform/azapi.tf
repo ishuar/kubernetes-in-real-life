@@ -6,11 +6,11 @@ resource "azapi_resource_action" "container_service_provider_registration" {
 
   depends_on = [
     terraform_data.az_feature_register
-   ]
+  ]
 }
 
 resource "terraform_data" "az_feature_register" {
-triggers_replace = [
+  triggers_replace = [
     data.azurerm_client_config.current.subscription_id
   ]
   provisioner "local-exec" {

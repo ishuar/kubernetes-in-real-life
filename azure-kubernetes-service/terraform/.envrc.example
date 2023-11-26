@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-source_up
-
-## ref : https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
-export TF_VAR_ALERTMANAGER_DISCORD_CHANNEL_RECEIVER_URL="https://discord.com/api/webhooks/<DISCORD_CHANNEL_ID>/<DISCORD_CHANNEL_TOKEN>"
