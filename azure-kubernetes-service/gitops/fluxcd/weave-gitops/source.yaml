@@ -3,7 +3,8 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   annotations:
-    metadata.weave.works/description: This is the source location for the Weave GitOps
+    metadata.weave.works/description:
+      This is the source location for the Weave GitOps
       Dashboard's helm chart.
   labels:
     app.kubernetes.io/component: ui

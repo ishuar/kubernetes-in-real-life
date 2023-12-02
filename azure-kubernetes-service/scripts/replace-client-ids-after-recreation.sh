@@ -5,7 +5,6 @@
 ##* should be made. This script should be ran once terraform apply is successful and then need to be pushed to github repo.
 ##! terraform , jq and yq are required to run this script.
 
-
 CURRENT_DIR="$(pwd)"
 GITOPS_DIR="$(dirname "$CURRENT_DIR")/gitops/fluxcd"
 
@@ -23,7 +22,7 @@ APPLICATIONS_WITH_CLIENT_ID_MAP=(
   external-secrets-operator:"$EXTERNAL_SECRETS_OPERATOR_CLIENT_ID"
 )
 
-for app in "${APPLICATIONS_WITH_CLIENT_ID_MAP[@]}";do
+for app in "${APPLICATIONS_WITH_CLIENT_ID_MAP[@]}"; do
   APP_NAME="$(echo "${app}" | cut -d ':' -f1)"
   CLIENT_ID="$(echo "${app}" | cut -d ':' -f2)"
   export CLIENT_ID

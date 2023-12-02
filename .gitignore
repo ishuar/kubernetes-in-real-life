@@ -33,3 +33,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 **/*private-key
+
+# Ignore Infracost files
+**/.infracost

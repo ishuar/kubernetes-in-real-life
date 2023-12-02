@@ -20,8 +20,8 @@ spec:
         - configMap:
             name: alertmanager-config-tpl
             items:
-            - key: alertmanager.yaml
+              - key: alertmanager.yaml
   data:
-  - secretKey: discordWebhookUrl
-    remoteRef:
-      key: discord-webhook-url
+    - secretKey: discordWebhookUrl
+      remoteRef:
+        key: discord-webhook-url

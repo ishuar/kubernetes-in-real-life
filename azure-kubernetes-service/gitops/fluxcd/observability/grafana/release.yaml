@@ -22,8 +22,8 @@ spec:
   upgrade:
     crds: CreateReplace
   dependsOn:
-  - name: external-secrets-operator
-    namespace: flux
+    - name: external-secrets-operator
+      namespace: flux
   ## https://artifacthub.io/packages/helm/grafana/grafana?modal=values
   values:
     plugins:
@@ -36,7 +36,7 @@ spec:
       enabled: true
       ingressClassName: nginx
       annotations:
-        cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
       pathType: ImplementationSpecific
       hosts:
         - grafana.k8s.learndevops.in
@@ -76,5 +76,5 @@ spec:
       ### Look for the label and its value on the configmaps and add them to grafana visualisation.
       dashboards:
         enabled: true
-        label: grafana_dashboard  # Default label on the kube-prometheus-stack deployed dashboards ( upsteam default too )
-        labelValue: 1             # Default label value on the kube-prometheus-stack deployed dashboards
+        label: grafana_dashboard # Default label on the kube-prometheus-stack deployed dashboards ( upsteam default too )
+        labelValue: 1 # Default label value on the kube-prometheus-stack deployed dashboards

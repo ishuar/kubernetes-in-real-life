@@ -3,7 +3,6 @@
 ##* This script helps to enable features required for AKS cluster in the Microsoft.ContainerService namepsace
 ##* Modify "FEATURES" bash array with the features required.
 
-
 FEATURES=("EnableAPIServerVnetIntegrationPreview" "EnableAPIServerVnetIntegrationPreview")
 
 for feature in "${FEATURES[@]}"; do

@@ -3,7 +3,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   annotations:
-    metadata.weave.works/description: This is the Weave GitOps Dashboard.  It provides
+    metadata.weave.works/description:
+      This is the Weave GitOps Dashboard.  It provides
       a simple way to get insights into your GitOps workloads.
   name: weave-gitops-flux-ui
 spec:
@@ -19,18 +20,18 @@ spec:
   values:
     logLevel: debug
     envVars:
-    - name: WEAVE_GITOPS_FEATURE_TENANCY
-      value: "true"
-    - name: WEAVE_GITOPS_FEATURE_CLUSTER
-      value: "false"
-    - name: WEAVE_GITOPS_FEATURE_TELEMETRY
-      value: "true"
-    - name: WEAVE_GITOPS_AUTH_ENABLED
-      value: "true"
-    - name: WEAVE_GITOPS_FEATURE_OIDC_ENABLED
-      value: "true"
-    - name: WEAVE_GITOPS_FEATURE_OIDC_BUTTON_LABEL
-      value: "My Pro OIDC Login"
+      - name: WEAVE_GITOPS_FEATURE_TENANCY
+        value: "true"
+      - name: WEAVE_GITOPS_FEATURE_CLUSTER
+        value: "false"
+      - name: WEAVE_GITOPS_FEATURE_TELEMETRY
+        value: "true"
+      - name: WEAVE_GITOPS_AUTH_ENABLED
+        value: "true"
+      - name: WEAVE_GITOPS_FEATURE_OIDC_ENABLED
+        value: "true"
+      - name: WEAVE_GITOPS_FEATURE_OIDC_BUTTON_LABEL
+        value: "My Pro OIDC Login"
     adminUser:
       create: true
       passwordHash: $2a$10$ntgXglW1iazgn8s.QERnYekKr/4dpDggIcgCBDJPdOyh0l6glSmmq

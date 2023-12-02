@@ -24,12 +24,12 @@ spec:
   upgrade:
     crds: CreateReplace
   dependsOn:
-  - name: external-secrets-operator
-    namespace: flux
+    - name: external-secrets-operator
+      namespace: flux
   ## https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack?modal=values
   values:
-  ## As the AKS is a managed services control plane components are not available for scraping.
-  ##? ref: https://github.com/prometheus-community/helm-charts/issues/1704#issuecomment-1016516500
+    ## As the AKS is a managed services control plane components are not available for scraping.
+    ##? ref: https://github.com/prometheus-community/helm-charts/issues/1704#issuecomment-1016516500
     kubeEtcd:
       enabled: false
     kubeControllerManager:
@@ -52,7 +52,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/auth-type: basic
           nginx.ingress.kubernetes.io/auth-secret: kube-prom-stack-basic-auth
-          cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
         hosts:
           - alertmanager.k8s.learndevops.in
         paths:
@@ -117,7 +117,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
         pathType: ImplementationSpecific
         hosts:
           - grafana.k8s.learndevops.in
@@ -157,7 +157,7 @@ spec:
         ### Look for the label and its value on the configmaps and add them to grafana visualisation.
         dashboards:
           enabled: true
-          label: grafana_dashboard  # Default label on the kube-prometheus-stack deployed dashboards ( upsteam default too )
+          label: grafana_dashboard # Default label on the kube-prometheus-stack deployed dashboards ( upsteam default too )
           labelValue: 1
 
     ################
@@ -176,7 +176,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/auth-type: basic
           nginx.ingress.kubernetes.io/auth-secret: kube-prom-stack-basic-auth
-          cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
         hosts:
           - prometheus.k8s.learndevops.in
         tls:
