@@ -155,6 +155,6 @@ Once you are done with your testing or want to de-provision the infrastructure. 
 terraform destroy
 ```
 
-> The resources provisioned in this set us generates costs, please destroy infrastrucutre to avoid extra costs.
+> The resources provisioned in this set up generate costs, please destroy infrastrucutre after testing to avoid extra costs.
 
-More details on [terraform-dir0readme](./terraform/README.md)
+More details on [terraform-directory-readme](./terraform/README.md)

@@ -65,9 +65,9 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dns_zone_name_servers"></a> [dns\_zone\_name\_servers](#output\_dns\_zone\_name\_servers) | n/a |
-| <a name="output_flux_dashboard_client_id_name"></a> [flux\_dashboard\_client\_id\_name](#output\_flux\_dashboard\_client\_id\_name) | n/a |
-| <a name="output_flux_dashboard_client_secret_name"></a> [flux\_dashboard\_client\_secret\_name](#output\_flux\_dashboard\_client\_secret\_name) | n/a |
+| <a name="output_dns_zone_name_servers"></a> [dns\_zone\_name\_servers](#output\_dns\_zone\_name\_servers) | List of DNS nameservers to which domain registrar has to delegate DNS traffic. e.g from Godady to azure public DNS zone. |
+| <a name="output_flux_dashboard_client_id_name"></a> [flux\_dashboard\_client\_id\_name](#output\_flux\_dashboard\_client\_id\_name) | Client ID used for flux dashboard ( weave gitops ) service principal. |
+| <a name="output_flux_dashboard_client_secret_name"></a> [flux\_dashboard\_client\_secret\_name](#output\_flux\_dashboard\_client\_secret\_name) | Client secret used for flux dashboard ( weave gitops ) service principal. |
 | <a name="output_name_client_id_key_pair"></a> [name\_client\_id\_key\_pair](#output\_name\_client\_id\_key\_pair) | clientID for the managed identities in the format 'name = client\_id' for usage in kubernetes manifests without accessing portal. |
-| <a name="output_subscription_id"></a> [subscription\_id](#output\_subscription\_id) | n/a |
-| <a name="output_tenant_id"></a> [tenant\_id](#output\_tenant\_id) | n/a |
+| <a name="output_subscription_id"></a> [subscription\_id](#output\_subscription\_id) | Subscription ID in which infrastrucutre is deployed. |
+| <a name="output_tenant_id"></a> [tenant\_id](#output\_tenant\_id) | Tenant ID in which infrastructure is deployed. |
