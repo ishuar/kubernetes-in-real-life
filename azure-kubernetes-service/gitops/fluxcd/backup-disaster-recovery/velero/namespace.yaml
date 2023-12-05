@@ -1,0 +1,5 @@
+## Namepsace where velero will save backups
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: velero
