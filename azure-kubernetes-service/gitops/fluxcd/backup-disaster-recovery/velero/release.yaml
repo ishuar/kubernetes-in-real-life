@@ -41,11 +41,11 @@ spec:
         - name: azure-default
           provider: azure
           bucket: velero
+          default: true
           config:
             resourceGroup: 'rg-velero-backup-kubernetes-projects'
             subscriptionId: 'df30c82e-30e4-4ab5-80ce-8d4aef10990d'
             storageAccount: stgvelerowu001
-            default: true
       volumeSnapshotLocation:
         - name: azure-default
           provider: azure
