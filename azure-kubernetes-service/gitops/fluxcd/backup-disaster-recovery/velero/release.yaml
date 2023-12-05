@@ -63,13 +63,14 @@ spec:
         labels:
           azure.workload.identity/use: "true"
     credentials:
-      name: velero-secret-for-azure
-      secretContents:
-        cloud: |
-          AZURE_SUBSCRIPTION_ID="df30c82e-30e4-4ab5-80ce-8d4aef10990d"
-          AZURE_RESOURCE_GROUP="MC_rg-kubernetes-projects_kubernetes-projects-fluxcd_westeurope"
-          AZURE_CLOUD_NAME=AzurePublicCloud
-    deployNodeAgent: true
+      useSecret: false
+      # name: velero-secret-for-azure
+      # secretContents:
+      #   cloud: |
+      #     AZURE_SUBSCRIPTION_ID="df30c82e-30e4-4ab5-80ce-8d4aef10990d"
+      #     AZURE_RESOURCE_GROUP="MC_rg-kubernetes-projects_kubernetes-projects-fluxcd_westeurope"
+      #     AZURE_CLOUD_NAME=AzurePublicCloud
+    deployNodeAgent: false
     nodeAgent:
       resources:
         requests:
