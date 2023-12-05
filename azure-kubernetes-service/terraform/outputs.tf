@@ -37,3 +37,8 @@ output "aks_resource_group_name" {
   value       = azurerm_resource_group.aks.name
   description = "Resource group where azure kubernetes cluster is created"
 }
+
+output "velero_backup_resource_group_name" {
+  value       = azurerm_resource_group.velero.name
+  description = "Resource group where velero will store the snapshots of the azure disks used as persistent volumes."
+}

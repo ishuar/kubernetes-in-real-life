@@ -42,18 +42,18 @@ spec:
           provider: azure
           bucket: velero
           config:
-            resourceGroup: 'rg-kubernetes-projects'
+            resourceGroup: 'rg-velero-backup-kubernetes-projects'
             subscriptionId: 'df30c82e-30e4-4ab5-80ce-8d4aef10990d'
             storageAccount: stgvelerowu001
       volumeSnapshotLocation:
         - name: azure-default
           provider: azure
           config:
-            resourceGroup: 'rg-kubernetes-projects'
+            resourceGroup: 'rg-velero-backup-kubernetes-projects'
             subscriptionId: 'df30c82e-30e4-4ab5-80ce-8d4aef10990d'
             incremental: true
-    defaultBackupStorageLocation: azure-default
-    defaultVolumeSnapshotLocations: azure-default
+      defaultBackupStorageLocation: azure-default
+      defaultVolumeSnapshotLocations: azure-default
     logFormat: json
     ### https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=dotnet#pod-labels
     podLabels:

@@ -4,6 +4,7 @@
 ##* from terraform ouputs and update the respective files , so that infra can be recreated and no manual changees
 ##* should be made. This script should be ran once terraform apply is successful and then need to be pushed to github repo.
 ##! terraform , jq and yq are required to run this script.
+## this script will only work terraform dir as terraform outputs are only available there.
 
 CURRENT_DIR="$(pwd)"
 GITOPS_DIR="$(dirname "$CURRENT_DIR")/gitops/fluxcd"
@@ -12,7 +13,7 @@ CERT_MANAGER_CLIENT_ID="$(terraform output --json name_client_id_key_pair | jq '
 EXTERNAL_DNS_CLIENT_ID="$(terraform output --json name_client_id_key_pair | jq '."uid-external-dns"')"
 EXTERNAL_SECRETS_OPERATOR_CLIENT_ID="$(terraform output --json name_client_id_key_pair | jq '."uid-external-secrets-operator"')"
 VELERO_CLIENT_ID="$(terraform output --json name_client_id_key_pair | jq '."uid-velero"')"
-VELERO_RESOURCE_GROUP="$(terraform output aks_resource_group_name)"
+VELERO_BACKUP_RESOURCE_GROUP="$(terraform output velero_backup_resource_group_name)"
 
 
 export CERT_MANAGER_CLIENT_ID ## Required for env(CERT_MANAGER_CLIENT_ID) :: different dir than infrastructure ::
@@ -39,15 +40,15 @@ done
 ## VELERO Replacements
 
 export VELERO_CLIENT_ID  ## Required for env(VELERO_CLIENT_ID) :: different dir than infrastructure ::
-export VELERO_RESOURCE_GROUP
-VELERO_RELEASE_YAML_FILE="$GITOPS_DIR/backup-disaster-recover/velero/release.yaml"
-yq eval -i '.spec.values.serviceAccount.annotations."azure.workload.identity/client-id" = env(VELERO_CLIENT_ID)' "$VELERO_RELEASE_YAML_FILE"
-yq eval -i '.spec.values.configuration.volumeSnapshotLocation[].config.resourceGroup = env(VELERO_RESOURCE_GROUP)' "$VELERO_RELEASE_YAML_FILE"
-yq eval -i '.spec.values.configuration.backupStorageLocation[].config.resourceGroup = env(VELERO_RESOURCE_GROUP)' "$VELERO_RELEASE_YAML_FILE"
+export VELERO_BACKUP_RESOURCE_GROUP
+VELERO_RELEASE_YAML_FILE="$GITOPS_DIR/backup-disaster-recovery/velero/release.yaml"
+yq eval -i '.spec.values.serviceAccount.server.annotations."azure.workload.identity/client-id" = env(VELERO_CLIENT_ID)' "$VELERO_RELEASE_YAML_FILE"
+yq eval -i '.spec.values.configuration.volumeSnapshotLocation[].config.resourceGroup = env(VELERO_BACKUP_RESOURCE_GROUP)' "$VELERO_RELEASE_YAML_FILE"
+yq eval -i '.spec.values.configuration.backupStorageLocation[].config.resourceGroup = env(VELERO_BACKUP_RESOURCE_GROUP)' "$VELERO_RELEASE_YAML_FILE"
 
 ## Print the change
-UPDATED_VELERO_CLIENT_ID="$(yq '.spec.values.serviceAccount.annotations."azure.workload.identity/client-id"' < "$VELERO_RELEASE_YAML_FILE")"
-UPDATED_VELERO_RESOURCE_GROUP="$(yq '.spec.values.configuration.volumeSnapshotLocation[].config.resourceGroup' < "$VELERO_RELEASE_YAML_FILE")"
+UPDATED_VELERO_CLIENT_ID="$(yq '.spec.values.serviceAccount.server.annotations."azure.workload.identity/client-id"' < "$VELERO_RELEASE_YAML_FILE")"
+UPDATED_VELERO_BACKUP_RESOURCE_GROUP="$(yq '.spec.values.configuration.volumeSnapshotLocation[].config.resourceGroup' < "$VELERO_RELEASE_YAML_FILE")"
 
 echo "velero-client-id-from-yaml-file: $UPDATED_VELERO_CLIENT_ID (client-id)"
-echo "velero-rg-name-from-yaml-file: $UPDATED_VELERO_RESOURCE_GROUP (resource-group)"
+echo "velero-rg-name-from-yaml-file: $UPDATED_VELERO_BACKUP_RESOURCE_GROUP (resource-group)"

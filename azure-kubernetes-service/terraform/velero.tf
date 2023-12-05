@@ -1,7 +1,13 @@
+resource "azurerm_resource_group" "velero" {
+  name     = "rg-velero-backup-${local.tags["github_repo"]}"
+  location = "West Europe"
+  tags     = local.tags
+}
+
 resource "azurerm_storage_account" "velero" {
   name                      = "stgvelerowu001"
-  resource_group_name       = azurerm_resource_group.aks.name
-  location                  = azurerm_resource_group.aks.location
+  resource_group_name       = azurerm_resource_group.velero.name
+  location                  = azurerm_resource_group.velero.location
   account_tier              = "Standard"
   account_replication_type  = "ZRS"
   min_tls_version           = "TLS1_2"
