@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: cert-manager # { artifact-hub-package: helm/cert-manager/cert-manager }
+      chart: cert-manager
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -32,10 +32,9 @@ spec:
     global:
       logLevel: 3
     podLabels:
-      azure.workload.identity/use: "true"
+      azure.workload.identity/use: 'true'
     serviceAccount:
       name: sa-cert-manager
       annotations:
-        azure.workload.identity/client-id: "e198ec7b-bde2-458a-974b-23b55071e85a"
-      labels:
-        azure.workload.identity/use: "true"
+        azure.workload.identity/client-id: 'e198ec7b-bde2-458a-974b-23b55071e85a'
+        azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
