@@ -54,14 +54,16 @@ spec:
     defaultBackupStorageLocation: azure-default
     defaultVolumeSnapshotLocations: azure-default
     logFormat: json
+    ### https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=dotnet#pod-labels
+    podLabels:
+      azure.workload.identity/use: "true"
     serviceAccount:
       server:
         name: velero
+        ### https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=dotnet#service-account-annotations
         annotations:
           azure.workload.identity/client-id: "ebbc005c-4d37-4f8d-9a69-690b2372619b"
           azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
-        labels:
-          azure.workload.identity/use: "true"
     credentials:
       useSecret: false
       # name: velero-secret-for-azure
