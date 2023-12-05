@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ./velero
 ## workaround to keep the different namespace than mentioned in child kustomization.yaml
-patches:
+patchesJson6902:
   - target:
       kind: Namespace
       version: v1
@@ -12,3 +12,4 @@ patches:
       - op: replace
         path: /metadata/name
         value: velero
+
