@@ -55,12 +55,13 @@ spec:
     defaultVolumeSnapshotLocations: azure-default
     logFormat: json
     serviceAccount:
-      name: velero
-      annotations:
-        azure.workload.identity/client-id: "ebbc005c-4d37-4f8d-9a69-690b2372619b"
-        azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
-      labels:
-        azure.workload.identity/use: "true"
+      server:
+        name: velero
+        annotations:
+          azure.workload.identity/client-id: "ebbc005c-4d37-4f8d-9a69-690b2372619b"
+          azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
+        labels:
+          azure.workload.identity/use: "true"
     credentials:
       name: velero-secret-for-azure
       secretContents:
