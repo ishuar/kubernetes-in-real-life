@@ -96,6 +96,11 @@ module "flux_dashboard" {
 
   kustomizations = [
     {
+      name                     = "backup-disaster-recovery"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/backup-disaster-recovery/velero"
+      sync_interval_in_seconds = 60
+    },
+    {
       name                     = "infrastructure"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/infrastructure"
       sync_interval_in_seconds = 60

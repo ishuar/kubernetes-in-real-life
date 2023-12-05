@@ -8,4 +8,5 @@ locals {
   flux_manifests_namespace = "flux"
   key_vault_access         = ["external-secrets-operator"]
   dns_admin_access         = ["external-dns", "cert-manager"]
+  storage_admin            = ["velero"]
 }

@@ -1,0 +1,81 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: velero
+spec:
+  chart:
+    spec:
+      chart: velero
+      interval: 1m
+      sourceRef:
+        kind: HelmRepository
+        name: vmware-tanzu
+        namespace: flux
+      version: 5.1.6
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  interval: 5m
+  # https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
+  values:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        cpu: 250m
+        memory: 256Gi
+    initContainers:
+      - name: velero-plugin-for-microsoft-azure
+        image: velero/velero-plugin-for-microsoft-azure:v1.8.2
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+    serviceMonitor:
+      enabled: true
+    configuration:
+      backupStorageLocation:
+        - name: azure-default
+          provider: azure
+          bucket: velero
+          config:
+            resourceGroup: "rg-kubernetes-projects"
+            subscriptionId: "df30c82e-30e4-4ab5-80ce-8d4aef10990d"
+            storageAccount: stgvelerowu001
+      volumeSnapshotLocation:
+        - name: azure-default
+          provider: azure
+          config:
+            resourceGroup: "rg-kubernetes-projects"
+            subscriptionId: "df30c82e-30e4-4ab5-80ce-8d4aef10990d"
+            incremental: true
+    defaultBackupStorageLocation: azure-default
+    defaultVolumeSnapshotLocations: azure-default
+    logFormat: json
+    serviceAccount:
+      name: velero
+      annotations:
+        azure.workload.identity/client-id: "ebbc005c-4d37-4f8d-9a69-690b2372619b"
+        azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
+      labels:
+        azure.workload.identity/use: "true"
+    credentials:
+      name: velero-secret-for-azure
+      secretContents:
+        cloud: |
+          AZURE_SUBSCRIPTION_ID="df30c82e-30e4-4ab5-80ce-8d4aef10990d"
+          AZURE_RESOURCE_GROUP="MC_rg-kubernetes-projects_kubernetes-projects-fluxcd_westeurope"
+          AZURE_CLOUD_NAME=AzurePublicCloud
+    deployNodeAgent: true
+    schedules:
+      daily-backup:
+        disabled: false
+        schedule: "0 2 * * *"
+        useOwnerReferencesInBackup: false
+        template:
+          ttl: "72h"
+          storagelocation: "azure-default"
+          includeNamespaces:
+            - flux

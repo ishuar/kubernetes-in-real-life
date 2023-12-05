@@ -27,3 +27,13 @@ output "dns_zone_name_servers" {
   value       = azurerm_dns_zone.k8s_learndevops_in.name_servers
   description = "List of DNS nameservers to which domain registrar has to delegate DNS traffic. e.g from Godady to azure public DNS zone."
 }
+
+output "aks_node_resource_group_name" {
+  value       = module.flux_dashboard.azurerm_kubernetes_cluster.node_resource_group
+  description = "Resource Group Name for the nodes in created azure kubernetes cluster"
+}
+
+output "aks_resource_group_name" {
+  value       = azurerm_resource_group.aks.name
+  description = "Resource group where azure kubernetes cluster is created"
+}

@@ -1,5 +1,5 @@
 resource "azurerm_user_assigned_identity" "this" {
-  for_each = toset(concat(local.key_vault_access, local.dns_admin_access))
+  for_each = toset(concat(local.key_vault_access, local.dns_admin_access, local.storage_admin))
 
   location            = azurerm_resource_group.aks.location
   name                = "uid-${each.value}"
@@ -7,9 +7,9 @@ resource "azurerm_user_assigned_identity" "this" {
 }
 
 resource "azurerm_federated_identity_credential" "this" {
-  for_each = toset(concat(local.key_vault_access, local.dns_admin_access))
+  for_each = toset(concat(local.key_vault_access, local.dns_admin_access, local.storage_admin))
 
-  name                = "federated-external-secrets-operator"
+  name                = "federated-${each.value}"
   resource_group_name = azurerm_resource_group.aks.name
   audience            = ["api://AzureADTokenExchange"]
   issuer              = module.flux_dashboard.azurerm_kubernetes_cluster.oidc_issuer_url
