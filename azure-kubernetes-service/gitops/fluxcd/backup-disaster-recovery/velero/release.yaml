@@ -59,7 +59,7 @@ spec:
       azure.workload.identity/use: 'true'
     serviceAccount:
       server:
-        name: velero
+        name: sa-velero
         ### https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=dotnet#service-account-annotations
         annotations:
           azure.workload.identity/client-id: 'ebbc005c-4d37-4f8d-9a69-690b2372619b'
