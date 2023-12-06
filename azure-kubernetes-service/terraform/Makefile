@@ -15,9 +15,6 @@ help: ## show this help.
 		else if (/^## .*$$/) {printf "  ${CYAN}%s${RESET}\n", substr($$1,4)} \
 		}' $(MAKEFILE_LIST)
 
-.Phony: create-backend
-create-backend: ## Create terraform remote backend storage account and container
-	../scripts/set-up-terraform-remote-state.sh
 
 .Phony: init
 init: ## Initialize the Terraform configuration
