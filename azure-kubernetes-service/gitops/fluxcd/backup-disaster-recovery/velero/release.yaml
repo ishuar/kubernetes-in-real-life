@@ -67,13 +67,13 @@ spec:
           azure.workload.identity/client-id: 'ebbc005c-4d37-4f8d-9a69-690b2372619b'
           azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
     credentials:
-      useSecret: false
-      # name: velero-secret-for-azure
-      # secretContents:
-      #   cloud: |
-      #     AZURE_SUBSCRIPTION_ID="df30c82e-30e4-4ab5-80ce-8d4aef10990d"
-      #     AZURE_RESOURCE_GROUP="MC_rg-kubernetes-projects_kubernetes-projects-fluxcd_westeurope"
-      #     AZURE_CLOUD_NAME=AzurePublicCloud
+      useSecret: true
+      name: velero-secret-for-azure
+      secretContents:
+        cloud: |
+          AZURE_SUBSCRIPTION_ID="df30c82e-30e4-4ab5-80ce-8d4aef10990d"
+          AZURE_RESOURCE_GROUP="MC_rg-kubernetes-projects_kubernetes-projects-fluxcd_westeurope"
+          AZURE_CLOUD_NAME=AzurePublicCloud
     deployNodeAgent: false
     nodeAgent:
       resources:
@@ -89,7 +89,6 @@ spec:
         useOwnerReferencesInBackup: false
         labels:
           schedule.velero.io/frequency: "daily"
-
         annotations:
           velero.io/csi-volumesnapshot-class_disk.csi.azure.com: "csi-azuredisk-vsc"
         template:
