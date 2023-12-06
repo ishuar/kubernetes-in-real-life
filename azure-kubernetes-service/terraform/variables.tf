@@ -10,4 +10,3 @@ variable "secret_management_key_vault_name" {
   description = "(optional) Key vault used for kubernetes secret management with external secrets operator."
   default     = "k8s-projects-secrets-02"
 }
-
