@@ -87,6 +87,11 @@ spec:
         disabled: false
         schedule: '0 2 * * *'
         useOwnerReferencesInBackup: false
+        labels:
+          schedule.velero.io/frequency: "daily"
+
+        annotations:
+          velero.io/csi-volumesnapshot-class_disk.csi.azure.com: "csi-azuredisk-vsc"
         template:
           ttl: '72h'
           storagelocation: 'azure-default'
