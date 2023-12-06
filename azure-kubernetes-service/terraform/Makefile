@@ -60,10 +60,8 @@ clean-all: clean ## Clean the .terraform directory and .lock.hcl with azure logo
 	az account clear
 
 .Phony: update-manifests
-update-manifests:
+update-manifests: ## Update kubernetes manifests file after changing terraform infra.
 	../scripts/replace-client-ids-after-recreation.sh
-
-
 
 .Phony: docs
 docs: ## Generate terraform documentation. Require terraform-docs installed locally.

@@ -9,7 +9,7 @@ metadata:
 driver: disk.csi.azure.com
 deletionPolicy: Delete
 parameters:
-  incremental: "true"  # available values: "true", "false" ("true" by default for Azure Public Cloud, and "false" by default for Azure Stack Cloud)
-  resourceGroup: rg-velero-backup-kubernetes-projects
+  incremental: "true" ## available values: "true", "false" ("true" by default for Azure Public Cloud, and "false" by default for Azure Stack Cloud)
+  resourceGroup: "rg-velero-backup-kubernetes-projects"
   subscriptionID: df30c82e-30e4-4ab5-80ce-8d4aef10990d
   tags: 'controller=velero'

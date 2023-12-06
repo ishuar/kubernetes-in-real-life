@@ -39,9 +39,14 @@
 | [azurerm_key_vault_secret.flux_dashboard_client_secret](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) | resource |
 | [azurerm_key_vault_secret.subscription_and_tenant_id](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) | resource |
 | [azurerm_resource_group.aks](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
+| [azurerm_resource_group.velero](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
 | [azurerm_role_assignment.aks_mi_network_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.dns_admin](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.kv_rbac](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
+| [azurerm_role_assignment.storage_admin](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
+| [azurerm_role_definition.velero](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_definition) | resource |
+| [azurerm_storage_account.velero](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+| [azurerm_storage_container.velero](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_subnet.aks_api](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
 | [azurerm_subnet.aks_node](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
 | [azurerm_user_assigned_identity.aks](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity) | resource |
@@ -65,9 +70,12 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_aks_node_resource_group_name"></a> [aks\_node\_resource\_group\_name](#output\_aks\_node\_resource\_group\_name) | Resource Group Name for the nodes in created azure kubernetes cluster |
+| <a name="output_aks_resource_group_name"></a> [aks\_resource\_group\_name](#output\_aks\_resource\_group\_name) | Resource group where azure kubernetes cluster is created |
 | <a name="output_dns_zone_name_servers"></a> [dns\_zone\_name\_servers](#output\_dns\_zone\_name\_servers) | List of DNS nameservers to which domain registrar has to delegate DNS traffic. e.g from Godady to azure public DNS zone. |
 | <a name="output_flux_dashboard_client_id_name"></a> [flux\_dashboard\_client\_id\_name](#output\_flux\_dashboard\_client\_id\_name) | Client ID used for flux dashboard ( weave gitops ) service principal. |
 | <a name="output_flux_dashboard_client_secret_name"></a> [flux\_dashboard\_client\_secret\_name](#output\_flux\_dashboard\_client\_secret\_name) | Client secret used for flux dashboard ( weave gitops ) service principal. |
 | <a name="output_name_client_id_key_pair"></a> [name\_client\_id\_key\_pair](#output\_name\_client\_id\_key\_pair) | clientID for the managed identities in the format 'name = client\_id' for usage in kubernetes manifests without accessing portal. |
 | <a name="output_subscription_id"></a> [subscription\_id](#output\_subscription\_id) | Subscription ID in which infrastrucutre is deployed. |
 | <a name="output_tenant_id"></a> [tenant\_id](#output\_tenant\_id) | Tenant ID in which infrastructure is deployed. |
+| <a name="output_velero_backup_resource_group_name"></a> [velero\_backup\_resource\_group\_name](#output\_velero\_backup\_resource\_group\_name) | Resource group where velero will store the snapshots of the azure disks used as persistent volumes. |
