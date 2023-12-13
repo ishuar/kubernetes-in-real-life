@@ -12,6 +12,10 @@ spec:
         name: nginxinc
         namespace: flux
       version: 1.0.0
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   interval: 5m
   # https://github.com/nginxinc/nginx-gateway-fabric/blob/v1.0.0/deploy/helm-chart/values.yaml
   values:
