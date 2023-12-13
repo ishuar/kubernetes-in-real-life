@@ -12,6 +12,7 @@ spec:
         name: external-dns
         namespace: flux
       version: 1.13.1
+  timeout: 10m
   install:
     crds: CreateReplace
   upgrade:

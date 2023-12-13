@@ -12,6 +12,7 @@ spec:
         name: external-secrets-operator
         namespace: flux
       version: 0.9.7
+  timeout: 10m
   install:
     crds: CreateReplace
   upgrade:

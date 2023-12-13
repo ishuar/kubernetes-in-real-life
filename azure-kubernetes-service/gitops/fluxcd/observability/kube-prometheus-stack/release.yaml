@@ -18,6 +18,7 @@ spec:
         name: prometheus-community
         namespace: flux
       version: 52.1.0
+  timeout: 10m
   interval: 5m
   install:
     crds: CreateReplace

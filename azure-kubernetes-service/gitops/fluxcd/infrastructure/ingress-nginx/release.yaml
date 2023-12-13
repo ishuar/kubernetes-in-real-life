@@ -13,6 +13,7 @@ spec:
         namespace: flux
       version: 4.7.1
   interval: 5m
+  timeout: 10m
   # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
   values:
     controller:

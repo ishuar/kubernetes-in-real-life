@@ -13,6 +13,7 @@ spec:
         namespace: flux
       version: v1.13.0
   interval: 5m
+  timeout: 10m
   install:
     crds: CreateReplace
   upgrade:
