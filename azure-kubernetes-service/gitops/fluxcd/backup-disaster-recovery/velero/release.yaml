@@ -38,6 +38,8 @@ spec:
       serviceMonitor:
         enabled: true
         namespace: flux
+        additionalLabels:
+          release: kube-prometheus-stack
     configuration:
       backupStorageLocation:
         - name: azure-default
