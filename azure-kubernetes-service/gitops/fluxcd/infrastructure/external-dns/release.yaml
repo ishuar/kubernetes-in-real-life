@@ -29,6 +29,11 @@ spec:
         azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
     podLabels:
       azure.workload.identity/use: 'true'
+    serviceMonitor:
+      enabled: true
+      ## kube-prometheus-stack helmrelease name
+      additionalLabels:
+        release: kube-prometheus-stack
     provider: azure
     secretConfiguration:
       enabled: true

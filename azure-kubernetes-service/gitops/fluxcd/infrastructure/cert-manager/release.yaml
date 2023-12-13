@@ -25,10 +25,6 @@ spec:
     installCRDs: true
     extraArgs:
       - --enable-certificate-owner-ref=true
-    prometheus:
-      enabled: false
-      serviceMonitor:
-        enabled: false
     global:
       logLevel: 3
     podLabels:
@@ -38,3 +34,9 @@ spec:
       annotations:
         azure.workload.identity/client-id: 'e198ec7b-bde2-458a-974b-23b55071e85a'
         azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
+    prometheus:
+      enabled: true
+      servicemonitor:
+        ## kube-prometheus-stack helmrelease name
+        labels:
+          release: kube-prometheus-stack
