@@ -113,6 +113,8 @@ spec:
       replicas: 2
       serviceMonitor:
         enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
       ingress:
         enabled: true
         ingressClassName: nginx
