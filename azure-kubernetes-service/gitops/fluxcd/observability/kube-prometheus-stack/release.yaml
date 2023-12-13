@@ -114,7 +114,7 @@ spec:
       serviceMonitor:
         enabled: true
         labels:
-          release: kube-prometheus-stack
+          release: '{{ .Release.Name }}'
       ingress:
         enabled: true
         ingressClassName: nginx
