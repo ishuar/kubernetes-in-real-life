@@ -39,3 +39,8 @@ spec:
         maxReplicas: 4
         targetCPUUtilizationPercentage: 90
         targetMemoryUtilizationPercentage: 90
+      podSecurityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: 'RuntimeDefault'
+        allowPrivilegeEscalation: false
