@@ -5,13 +5,13 @@ This documentation guides you through the deployment and exposure of the sample-
 
 ## Files:
 
-1. ingress.yaml
+1. `ingress.yaml`
    - Purpose: Defines the Ingress rules for routing traffic to the sample-app.
 
-2. service.yaml
+2. `service.yaml`
   - Purpose: Defines the Kubernetes Service for the sample-app.
 
-3. sample-app.yaml
+3. `sample-app.yaml`
   - Purpose: Defines the deployment configuration for the sample-app.
 
 ## Apply Configurations:
