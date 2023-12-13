@@ -22,11 +22,11 @@ spec:
         enabled: true
         name: nginx
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
           additionalLabels:
-            release: ''
-          enabled: false
+            release: kube-prometheus-stack
+          enabled: true
       minAvailable: '50%'
       service:
         ## https://cloud-provider-azure.sigs.k8s.io/topics/loadbalancer/#loadbalancer-annotations
