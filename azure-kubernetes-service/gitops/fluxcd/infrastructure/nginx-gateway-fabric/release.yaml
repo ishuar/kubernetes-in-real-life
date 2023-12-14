@@ -23,3 +23,12 @@ spec:
     service:
       annotations:
         service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: '/healthz'
+  nginxGateway:
+    securityContext:
+      runAsNonRoot: true
+      seccompProfile:
+        type: 'RuntimeDefault'
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - KILL
