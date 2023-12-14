@@ -4,4 +4,4 @@ kind: Kustomization
 
 resources:
   - ./kube-prometheus-stack
-  - ./sources
+

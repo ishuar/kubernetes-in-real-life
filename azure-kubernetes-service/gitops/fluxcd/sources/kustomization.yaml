@@ -1,8 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - grafana.yaml
+  - prometheus-community.yaml
   - ingress-nginx.yaml
   - cert-manager.yaml
   - external-dns.yaml
   - bitnami.yaml
+  - external-sectets-operator.yaml
+  - ./velero.yaml
 namespace: flux

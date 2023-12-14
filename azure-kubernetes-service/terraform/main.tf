@@ -96,45 +96,51 @@ module "flux_dashboard" {
 
   kustomizations = [
     {
+      name                     = "sources"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/sources"
+      sync_interval_in_seconds = 60
+    },
+    {
       name                     = "secret-management"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/secret-management/external-secrets-operator"
-      sync_interval_in_seconds = 60
+      sync_interval_in_seconds = 10
+      depends_on               = ["sources"]
     },
     {
       name                     = "secrets-store"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/secret-management/secrets-store"
-      sync_interval_in_seconds = 60
+      sync_interval_in_seconds = 10
       depends_on               = ["secret-management"]
     },
     {
       name                     = "backup-disaster-recovery"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/backup-disaster-recovery/velero"
-      sync_interval_in_seconds = 60
+      sync_interval_in_seconds = 10
       depends_on               = ["observability"]
     },
     {
       name                     = "observability"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/observability"
-      sync_interval_in_seconds = 60
+      sync_interval_in_seconds = 10
       depends_on               = ["secrets-store", "infrastructure"] ## secrets and cert manager crds
     },
     {
       name                     = "infrastructure"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/infrastructure"
-      sync_interval_in_seconds = 60
+      sync_interval_in_seconds = 10
       depends_on               = ["secrets-store"] ## secrets
     },
 
     {
       name                     = "cluster-issuer"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/cluster-issuer"
-      sync_interval_in_seconds = 60
+      sync_interval_in_seconds = 10
       depends_on               = ["infrastructure"] ## cert manager crds
     },
     {
       name                     = "weave-gitops-flux-ui"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/weave-gitops"
-      sync_interval_in_seconds = 60
+      sync_interval_in_seconds = 10
       depends_on               = ["infrastructure", "observability"]
     },
   ]
