@@ -116,26 +116,26 @@ module "flux_dashboard" {
       name                     = "observability"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/observability"
       sync_interval_in_seconds = 60
-      depends_on               = ["secret-management"]
+      depends_on               = ["secrets-store", "infrastructure"] ## secrets and cert manager crds
     },
     {
       name                     = "infrastructure"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/infrastructure"
       sync_interval_in_seconds = 60
-      depends_on               = ["secret-management", "observability"]
+      depends_on               = ["secrets-store"] ## secrets
     },
 
     {
       name                     = "cluster-issuer"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/cluster-issuer"
       sync_interval_in_seconds = 60
-      depends_on               = ["infrastructure"]
+      depends_on               = ["infrastructure"] ## cert manager crds
     },
     {
       name                     = "weave-gitops-flux-ui"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/weave-gitops"
       sync_interval_in_seconds = 60
-      depends_on               = ["infrastructure"]
+      depends_on               = ["infrastructure", "observability"]
     },
   ]
   ## This is experimental only Feature

@@ -31,7 +31,7 @@ spec:
     podLabels:
       azure.workload.identity/use: 'true'
     serviceMonitor:
-      enabled: true
+      enabled: false
       ## kube-prometheus-stack helmrelease name
       additionalLabels:
         release: kube-prometheus-stack

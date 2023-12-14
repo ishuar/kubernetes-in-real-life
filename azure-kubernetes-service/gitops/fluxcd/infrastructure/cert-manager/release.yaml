@@ -36,7 +36,7 @@ spec:
         azure.workload.identity/client-id: 'e198ec7b-bde2-458a-974b-23b55071e85a'
         azure.workload.identity/tenant-id: 62143b67-6780-4dd3-8294-f784d7bac864
     prometheus:
-      enabled: true
+      enabled: false ## cyclic dependency on kube-prometheus-stack
       servicemonitor:
         ## kube-prometheus-stack helmrelease name
         labels:
