@@ -188,10 +188,10 @@ spec:
           enabled: true
       resources:
         limits:
-          memory: 250Mi
+          memory: 128Mi
         requests:
-          cpu: 100m
-          memory: 100Mi
+          cpu: 50m
+          memory: 92Mi
     prometheus:
       ingress:
         enabled: true
@@ -212,10 +212,10 @@ spec:
       prometheusSpec:
         resources:
           requests:
-            memory: 2750Mi
+            memory: 192Mi
             cpu: 100m
           limits:
-            memory: 500Mi
+            memory: 256Mi
         logFormat: json
         # priorityClassName: <CREATE_PRIORITY_CLASS>
         storageSpec:
@@ -225,4 +225,6 @@ spec:
               storageClassName: "premium-zrs-retain"
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 5Gi
+Pod "prometheus-kube-prometheus-stack-prometheus-0" is invalid: spec.containers[0].resources.requests: Invalid value: "27 │
+│ 50Mi": must be less than or equal to memory limit of 500Mi
