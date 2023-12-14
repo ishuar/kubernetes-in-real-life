@@ -96,21 +96,35 @@ module "flux_dashboard" {
 
   kustomizations = [
     {
+      name                     = "secret-management"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/secret-management/external-secrets-operator"
+      sync_interval_in_seconds = 60
+    },
+    {
+      name                     = "secrets-store"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/secret-management/secrets-store"
+      sync_interval_in_seconds = 60
+      depends_on               = ["secret-management"]
+    },
+    {
       name                     = "backup-disaster-recovery"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/backup-disaster-recovery/velero"
       sync_interval_in_seconds = 60
+      depends_on               = ["observability"]
+    },
+    {
+      name                     = "observability"
+      path                     = "./azure-kubernetes-service/gitops/fluxcd/observability"
+      sync_interval_in_seconds = 60
+      depends_on               = ["secret-management"]
     },
     {
       name                     = "infrastructure"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/infrastructure"
       sync_interval_in_seconds = 60
+      depends_on               = ["secret-management", "observability"]
     },
-    {
-      name                     = "external-secrets-store"
-      path                     = "./azure-kubernetes-service/gitops/fluxcd/secret-store"
-      sync_interval_in_seconds = 60
-      depends_on               = ["infrastructure"]
-    },
+
     {
       name                     = "cluster-issuer"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/cluster-issuer"
@@ -118,16 +132,10 @@ module "flux_dashboard" {
       depends_on               = ["infrastructure"]
     },
     {
-      name                     = "observability"
-      path                     = "./azure-kubernetes-service/gitops/fluxcd/observability"
-      sync_interval_in_seconds = 60
-      depends_on               = ["infrastructure", "external-secrets-store", "cluster-issuer"]
-    },
-    {
       name                     = "weave-gitops-flux-ui"
       path                     = "./azure-kubernetes-service/gitops/fluxcd/weave-gitops"
       sync_interval_in_seconds = 60
-      depends_on               = ["infrastructure", "external-secrets-store", "cluster-issuer"]
+      depends_on               = ["infrastructure"]
     },
   ]
   ## This is experimental only Feature
