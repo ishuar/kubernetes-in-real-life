@@ -1,10 +1,12 @@
 - [fluxcd](#fluxcd)
   - [FluxCD Configurations](#fluxcd-configurations)
 - [Directory Structure](#directory-structure)
+    - [sources](#sources)
+    - [backup-disaster-recovery](#backup-disaster-recovery)
     - [cluster-issuer](#cluster-issuer)
     - [infrastructure](#infrastructure)
     - [observability](#observability)
-    - [secret-store](#secret-store)
+    - [secret-management](#secret-management)
     - [weave-gitops](#weave-gitops)
 
 # fluxcd
@@ -23,6 +25,18 @@ Multitenancy is enabled by default for FluxCD in Azure kubernetes Services. Ther
 - Official Documentation: [Deploy applications using GitOps with Flux v2](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2?tabs=azure-cli)
 
 # Directory Structure
+
+### [sources](./sources/)
+
+This directory contains the flux [source controller](https://fluxcd.io/flux/components/source/) resources, such as [Helm Repositories](https://fluxcd.io/flux/components/source/helmrepositories/) and is the first kustomization to be deployed in the cluster.
+
+- Official Documentation: [source controller](https://fluxcd.io/flux/components/source/)
+
+### [backup-disaster-recovery](./backup-disaster-recovery)
+
+This directory contains backup and disaster recovery configurations for the cluster. Velero is used for taking backups of the cluster and the persistent volumes associated within it.
+
+- Official Documentation: [Velero](https://velero.io/docs/v1.12/)
 
 ### [cluster-issuer](./cluster-issuer/)
 
@@ -54,10 +68,11 @@ Components:
 
 > NOTE: To be configurred.
 
-### [secret-store](./secret-store/)
+### [secret-management](./secret-management/)
 
 This directory contains `external-secret-operator` secret store configurations facilitating secret management in a GitOps-native way without defining secret values in Git.
 
+- Official documentation: [External Secrets Operator](https://external-secrets.io/latest/)
 - Official Documentation: [secretstore](https://external-secrets.io/latest/api/secretstore/)
 
 ### [weave-gitops](./weave-gitops/)
