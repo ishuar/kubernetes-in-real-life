@@ -85,7 +85,12 @@ spec:
         configSecret: discord-webhook-url
         replicas: 2 ## if replica is 1 it is a deadlock due to PDB
         logFormat: json ## better for parsing
-        resources: {}
+        resources:
+          requests:
+            memory: 150Mi
+            cpu: 100m
+          limits:
+            memory: 200Mi
         storage:
           volumeClaimTemplate:
             spec:
@@ -128,7 +133,12 @@ spec:
           - secretName: kube-prom-stack-grafana-tls-cert
             hosts:
               - grafana.k8s.learndevops.in
-      resources: {}
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 50m
+        limits:
+          memory: 200Mi
       persistence:
         enabled: true
         storageClassName: premium-zrs-retain
@@ -155,7 +165,12 @@ spec:
       #     # role_attribute_path: [login=='octocat'][0] && GrafanaAdmin || Viewer
       sidecar:
         logLevel: WARN
-        resources: {}
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            memory: 50Mi
+            cpu: 25m
         ## TODO: Investigate this side car config
         ### Look for the label and its value on the configmaps and add them to grafana visualisation.
         dashboards:
@@ -171,7 +186,12 @@ spec:
         # Use certmanager to generate webhook certs
         certManager:
           enabled: true
-      resources: {}
+      resources:
+        limits:
+          memory: 250Mi
+        requests:
+          cpu: 100m
+          memory: 100Mi
     prometheus:
       ingress:
         enabled: true
@@ -190,6 +210,12 @@ spec:
           - "/"
         pathType: ImplementationSpecific
       prometheusSpec:
+        resources:
+          requests:
+            memory: 2750Mi
+            cpu: 100m
+          limits:
+            memory: 500Mi
         logFormat: json
         # priorityClassName: <CREATE_PRIORITY_CLASS>
         storageSpec:
