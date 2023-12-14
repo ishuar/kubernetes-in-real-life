@@ -29,7 +29,7 @@ spec:
     podLabels:
       azure.workload.identity/use: 'true'
       ## kube-prometheus-stack helmrelease name
-      serviceMonitor:
-        enabled: true
-        additionalLabels:
-          release: kube-prometheus-stack
+    serviceMonitor:
+      enabled: false ## Cyclic dependency on kube-prometheus-stack
+      additionalLabels:
+        release: kube-prometheus-stack
