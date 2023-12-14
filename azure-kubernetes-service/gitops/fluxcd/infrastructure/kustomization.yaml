@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ./ingress-nginx
   - ./sources
-  - ./external-secrets-operator
   - ./cert-manager
   - ./external-dns
   - ./storageClasses
