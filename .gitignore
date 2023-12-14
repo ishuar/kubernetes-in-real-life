@@ -36,3 +36,4 @@ terraform.rc
 
 # Ignore Infracost files
 **/.infracost
+local.values.yaml
