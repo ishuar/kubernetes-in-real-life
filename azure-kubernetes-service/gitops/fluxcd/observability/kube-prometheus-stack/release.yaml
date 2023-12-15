@@ -226,5 +226,3 @@ spec:
               resources:
                 requests:
                   storage: 5Gi
-Pod "prometheus-kube-prometheus-stack-prometheus-0" is invalid: spec.containers[0].resources.requests: Invalid value: "27 │
-│ 50Mi": must be less than or equal to memory limit of 500Mi
