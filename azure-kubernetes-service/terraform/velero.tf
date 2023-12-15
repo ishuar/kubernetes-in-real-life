@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "velero" {
-  name     = "rg-velero-backup-${local.tags["github_repo"]}"
+  name     = "rg-velero-backup-${local.tags["prefix"]}"
   location = "West Europe"
   tags     = local.tags
 }

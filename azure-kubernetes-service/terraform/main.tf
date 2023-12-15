@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "aks" {
-  name     = "rg-${local.tags["github_repo"]}"
+  name     = "rg-${local.tags["prefix"]}"
   location = "West Europe"
   tags     = local.tags
 }
@@ -20,7 +20,7 @@ module "ssh_key_generator" {
 ##! Please use user-assigned managed identity."
 
 resource "azurerm_user_assigned_identity" "aks" {
-  name                = "id-${local.tags["github_repo"]}-fluxcd"
+  name                = "id-${local.tags["prefix"]}-fluxcd"
   resource_group_name = azurerm_resource_group.aks.name
   location            = azurerm_resource_group.aks.location
 }
@@ -40,7 +40,7 @@ module "flux_dashboard" {
 
   location            = azurerm_resource_group.aks.location
   resource_group_name = azurerm_resource_group.aks.name
-  name                = "${local.tags["github_repo"]}-fluxcd"
+  name                = "${local.tags["prefix"]}-fluxcd"
   dns_prefix          = "aks-fluxcd"
   key_data            = trimspace(module.ssh_key_generator.public_ssh_key)
   kubernetes_version  = data.azurerm_kubernetes_service_versions.current.latest_version

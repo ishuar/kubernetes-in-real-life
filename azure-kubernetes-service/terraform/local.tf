@@ -1,9 +1,12 @@
 locals {
   tags = {
-    github_repo     = "kubernetes-projects"
+    prefix          = "kubernetes-projects"
     managed_by      = "terraform"
     directory_level = "azure-kubernetes-service/terraform"
     gitops_operator = "fluxcd"
+    environment     = "dev"
+    cost_center     = "123456"
+    github_repo     = "ishuar/kubernetes-in-real-life"
   }
   flux_manifests_namespace = "flux"
   key_vault_access         = ["external-secrets-operator"]
