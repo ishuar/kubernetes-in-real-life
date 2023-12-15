@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: kubescape
         namespace: flux
-      version: 1.16.6
+      version: 1.16.5
   timeout: 10m
   interval: 5m
   install:
