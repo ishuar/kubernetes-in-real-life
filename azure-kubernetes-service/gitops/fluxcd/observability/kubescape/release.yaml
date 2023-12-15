@@ -15,16 +15,13 @@ spec:
         kind: HelmRepository
         name: kubescape
         namespace: flux
-      version: 52.1.0
+      version: 1.16.6
   timeout: 10m
   interval: 5m
   install:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  dependsOn:
-    - name: external-secrets-operator
-      namespace: flux
   ## https://github.com/kubescape/helm-charts/blob/main/charts/kubescape-operator/values.yaml
   values:
     account: ae5212ae-ef99-4beb-a4cb-b801f5cca7e2
