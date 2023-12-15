@@ -110,6 +110,19 @@ spec:
     ## default values from official Chart https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
     grafana:
       enabled: true
+      ## To keep the grafana pod on the same node because azure disk can not be mounted on multiple nodes
+      ## docs : https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - grafana
+            topologyKey: topology.kubernetes.io/zone
+
       # forceDeployDashboards: true
       # forceDeployDatasources: true
       defaultDashboardsTimezone: Europe
