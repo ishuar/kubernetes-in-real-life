@@ -225,10 +225,10 @@ spec:
       prometheusSpec:
         resources:
           requests:
-            memory: 192Mi
+            memory: 292Mi
             cpu: 100m
           limits:
-            memory: 256Mi
+            memory: 512Mi
         logFormat: json
         # priorityClassName: <CREATE_PRIORITY_CLASS>
         storageSpec:
