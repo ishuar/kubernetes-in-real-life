@@ -8,5 +8,6 @@ resources:
   - external-dns.yaml
   - bitnami.yaml
   - external-sectets-operator.yaml
-  - ./velero.yaml
+  - velero.yaml
+  - kubescape.yaml
 namespace: flux

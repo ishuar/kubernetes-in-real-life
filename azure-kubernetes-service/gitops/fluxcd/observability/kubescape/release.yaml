@@ -1,0 +1,106 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kubescape-operator
+  labels:
+    app.kubernetes.io/name: kubescape-operator
+    app.kubernetes.io/used-case: security
+spec:
+  chart:
+    spec:
+      chart: kubescape-operator
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: kubescape
+        namespace: flux
+      version: 52.1.0
+  timeout: 10m
+  interval: 5m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  dependsOn:
+    - name: external-secrets-operator
+      namespace: flux
+  ## https://github.com/kubescape/helm-charts/blob/main/charts/kubescape-operator/values.yaml
+  values:
+    account: ae5212ae-ef99-4beb-a4cb-b801f5cca7e2
+    clusterName: kubernetes-projects-fluxcd
+    continuousScanning:
+      # Matching rules for the monitored resources.
+      # Kubescape will watch resources of every provided GVR across the provided
+      # namespaces.
+      matchingRules:
+        match:
+          - apiGroups: ["apps"]
+            apiVersions: ["v1"]
+            resources: ["deployments", "statefulsets"]
+        namespaces:
+          - default
+          - flux
+    kubescape:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 250Mi
+        limits:
+          memory: 275Mi
+      prometheusAnnotation:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+    operator:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100Mi
+        limits:
+          memory: 128Mi
+    kubevuln:
+      verbose: "true"
+      resources:
+        requests:
+          cpu: 100m
+          memory: 350Mi
+          ephemeral-storage: 5Gi
+        limits:
+          memory: 375Mi
+          ephemeral-storage: 5Gi
+    kollector:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 150Mi
+        limits:
+          memory: 175Mi
+    otelCollector:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 250Mi
+        limits:
+          memory: 275Mi
+    storage:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 100Mi
+        limits:
+          memory: 125Mi
+    grypeOfflineDB:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 100Mi
+        limits:
+          memory: 125Mi
+    synchronizer:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 100Mi
+        limits:
+          memory: 125Mi
