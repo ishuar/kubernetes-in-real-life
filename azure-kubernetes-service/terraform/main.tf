@@ -91,7 +91,7 @@ module "flux_dashboard" {
   fluxcd_extension_release_namespace             = "flux-system"
   fluxcd_namespace                               = local.flux_manifests_namespace ##?This Namespace should be used in k8s manifests sync with AKS fluxCD when multi tenancy is enabled.
   fluxcd_scope                                   = "cluster"
-  fluxcd_git_repository_url                      = "https://github.com/ishuar/kubernetes-projects"
+  fluxcd_git_repository_url                      = "https://github.com/ishuar/kubernetes-in-real-life"
   fluxcd_git_repository_sync_interval_in_seconds = 60
 
   kustomizations = [
