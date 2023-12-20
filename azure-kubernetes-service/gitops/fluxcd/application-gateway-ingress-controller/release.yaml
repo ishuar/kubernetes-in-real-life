@@ -11,8 +11,8 @@ spec:
         kind: HelmRepository
         name: azure-application-gateway-ingress-controller
         namespace: flux
-      version: 1.6.0
-  interval: 5m
+      version: 1.7.2
+  interval: 1m
   timeout: 10m
   install:
     crds: CreateReplace
@@ -22,7 +22,7 @@ spec:
   #   - kind: ConfigMap
   #     name: agic-values
   values:
-# ref: https://github.com/Azure/application-gateway-kubernetes-ingress/blob/master/helm/ingress-azure/values.yaml
+  # ref: https://github.com/Azure/application-gateway-kubernetes-ingress/blob/master/helm/ingress-azure/values.yaml
     verbosityLevel: 3
     image:
       repository: mcr.microsoft.com/azure-application-gateway/kubernetes-ingress
