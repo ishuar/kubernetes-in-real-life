@@ -1,0 +1,27 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ingress-azure
+spec:
+  chart:
+    spec:
+      chart: ingress-azure
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: azure-application-gateway-ingress-controller
+        namespace: flux
+      version: 1.6.0
+  interval: 5m
+  timeout: 10m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  # dependsOn:
+  #   - name: external-secrets-operator
+  #     namespace: flux
+  # ref: https://github.com/Azure/application-gateway-kubernetes-ingress/blob/master/helm/ingress-azure/values.yaml
+  valuesFrom:
+    - kind: ConfigMap
+      name: agic-values

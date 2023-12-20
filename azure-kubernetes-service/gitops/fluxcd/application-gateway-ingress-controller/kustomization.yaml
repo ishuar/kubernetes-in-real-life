@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux
+resources:
+  - release.yaml
+  - ../../../expose-sample-app-with-ingress/
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/ingressClassName
+        value: azure-application-gateway
+      - op: replace
+        path: /spec/rules/0/host
+        value:
+      - op: replace
+        path: /spec/tls/0
+        value: []
+    target:
+      kind: Ingress
+      name: kubernetes-in-real-world-ingress
+# https://fluxcd.io/flux/guides/helmreleases/#refer-to-values-in-configmaps-generated-with-kustomize
+configMapGenerator:
+  - files:
+      - values.yaml=values.yaml
+    name: agic-values
+configurations:
+  - kustomizeconfig.yaml
