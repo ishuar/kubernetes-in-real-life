@@ -15,7 +15,7 @@ patches:
         value:
       - op: replace
         path: /spec/tls/0
-        value: []
+        value: {}
     target:
       kind: Ingress
       name: kubernetes-in-real-world-ingress

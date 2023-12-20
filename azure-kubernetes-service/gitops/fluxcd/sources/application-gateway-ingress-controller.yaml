@@ -1,7 +1,6 @@
 # https://azure.github.io/application-gateway-kubernetes-ingress/setup/install-existing/
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
-namespace: flux
 metadata:
   name: azure-application-gateway-ingress-controller
 spec:
