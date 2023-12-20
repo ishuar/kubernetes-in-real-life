@@ -18,10 +18,37 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  # dependsOn:
-  #   - name: external-secrets-operator
-  #     namespace: flux
-  # ref: https://github.com/Azure/application-gateway-kubernetes-ingress/blob/master/helm/ingress-azure/values.yaml
-  valuesFrom:
-    - kind: ConfigMap
-      name: agic-values
+  # valuesFrom:
+  #   - kind: ConfigMap
+  #     name: agic-values
+  values:
+# ref: https://github.com/Azure/application-gateway-kubernetes-ingress/blob/master/helm/ingress-azure/values.yaml
+    verbosityLevel: 3
+    image:
+      repository: mcr.microsoft.com/azure-application-gateway/kubernetes-ingress
+      tag: 1.6.0
+      pullPolicy: Always
+
+      # Set this to override the default ingress class value. DEFAULT: azure/application-gateway
+      # This can be used to segregate ingress controllers in the same namespace
+      # ingressClass: agic-2
+
+      # Set Ingress class resource to use the IngressClass V1 resource with Ingress V1
+      ingressClassResource:
+        name: azure-application-gateway
+        enabled: true
+        default: false
+        controllerValue: 'azure/application-gateway'
+    appgw:
+      environment: AZUREPUBLICCLOUD
+      resourceGroup: agic-poc-rg
+      name: agic-poc-gateway
+      # Whether to force private IP for all the listeners on Application Gateway
+      usePrivateIP: false
+    armAuth:
+      type: workloadIdentity
+      identityClientID: 9df4e4a0-cc33-4e7b-9202-fd5dce48deed ## NOT FROM PERSONAL SUBSCRIPTION ## ::commerce::
+
+    # Specify if the cluster is RBAC enabled or not
+    rbac:
+      enabled: false # true/false
