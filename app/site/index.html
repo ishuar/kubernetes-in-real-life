@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Welcome to Kubernetes-in-real-life project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      /* BEGIN: Change background color to black */
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: white;
+      /* BEGIN: Change heading color to white */
+      text-align: center;
+      position: relative;
+      animation: slide 15s linear infinite;
+      /* BEGIN: Add animation to slide from left to right */
+    }
+
+    @keyframes slide {
+      0% {
+        left: 0;
+        background-color: blue;
+      }
+
+      50% {
+        left: 50%;
+        background-color: green;
+      }
+
+      100% {
+        left: 100%;
+        background-color: red;
+      }
+    }
+
+    p {
+      color: yellow;
+      /* BEGIN: Change body color to yellow */
+      text-align: center;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .italic {
+      font-style: italic;
+      /* BEGIN: Make text italic */
+    }
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const heading = document.querySelector('h1');
+      const animationDuration = 15000; // 15 seconds
+      const animationDelay = 5; // 5 seconds
+
+      setTimeout(() => {
+        heading.style.animationDuration = `${animationDuration}ms`;
+        heading.style.animationDelay = `${animationDelay}ms`;
+      }, animationDelay);
+    });
+  </script>
+</head>
+
+<body>
+  <h1>Welcome to Kubernetes-in-real-life project</h1>
+  <p> This is a demo for exposing an application via ingress.</p>
+  <p>Follow me on <a href="https://github.com/ishuar">GitHub</a></p>
+  <p>Give a &#x2B50; on the project if this helped! Project URL: <a href="https://github.com/ishuar/kubernetes-in-real-life" target="_blank">kubernetes-in-real-life</a></p>
+      href="https://github.com/ishuar/kubernetes-in-real-life">kubernetes-in-real-life</a></p>
+  <p class="italic">Keep learning, keep growing! &#127793;</p>
+  <div class="center">
+    <img
+      src="https://github-readme-stats-ishuar.vercel.app/api?username=ishuar&show_icons=true&count_private=true&theme=radical&show=prs_merged_percentage&rank_icon=github"
+      alt="Ishan Sharma's GitHub Stats">
+  </div>
+</body>
+
+</html>

@@ -34,7 +34,7 @@ spec:
         match:
           - apiGroups: ["apps"]
             apiVersions: ["v1"]
-            resources: ["deployments", "statefulsets"]
+            resources: ["deployments", "statefulsets","daemonsets","pods"]
         namespaces:
           - default
           - flux
