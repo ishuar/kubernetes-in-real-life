@@ -1,0 +1,19 @@
+resources:
+- namespace.yaml
+- deploy-ingress-nginx.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# helmCharts:
+# - name: flagger
+#   releaseName: flagger
+#   version: 1.41.0
+#   repo: https://flagger.app
+#   namespace: flagger
+
+# - name: flagger-loadtester
+#   releaseName: flagger-loadtester
+#   version: 0.35.0
+#   repo: https://flagger.app
+#   namespace: pod-info
+
