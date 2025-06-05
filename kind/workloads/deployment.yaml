@@ -4,6 +4,8 @@ metadata:
   name: podinfo-latest
   labels:
     app: podinfo-latest
+  annotations:
+    reload_canary_version: "1"
 spec:
   minReadySeconds: 5
   revisionHistoryLimit: 5
@@ -20,12 +22,13 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9797"
+        reload_canary_version: "1"
       labels:
         app: podinfo-latest
     spec:
       containers:
       - name: podinfo-latestd
-        image: ghcr.io/stefanprodan/podinfo:6.9.0
+        image: ghcr.io/stefanprodan/podinfo:6.0.0
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
