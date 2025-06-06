@@ -1,0 +1,30 @@
+# https://docs.flagger.app/tutorials/kubernetes-blue-green
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: podinfo-latest
+  namespace: test
+spec:
+  ## Blue Green
+  provider: kubernetes
+  analysis:
+    interval: 10s
+    iterations: 10
+    # maxWeight: 50   ## canary
+    # stepWeight: 10  ## canary
+    threshold: 5
+  ingressRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    name: podinfo-latest
+  service:
+    port: 80
+    targetPort: 9898
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: podinfo-latest
+  autoscalerRef:
+    apiVersion: autoscaling/v2
+    kind: HorizontalPodAutoscaler
+    name: podinfo-latest
