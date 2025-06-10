@@ -1,0 +1,61 @@
+apiVersion: v1
+items:
+- apiVersion: flagger.app/v1beta1
+  kind: Canary
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"flagger.app/v1beta1","kind":"Canary","metadata":{"annotations":{},"name":"podinfo","namespace":"pod-info"},"spec":{"analysis":{"interval":"10s","maxWeight":50,"metrics":[{"interval":"1m","name":"request-success-rate","thresholdRange":{"min":99}}],"stepWeight":5,"threshold":10},"autoscalerRef":{"apiVersion":"autoscaling/v2","kind":"HorizontalPodAutoscaler","name":"podinfo"},"ingressRef":{"apiVersion":"networking.k8s.io/v1","kind":"Ingress","name":"podinfo"},"progressDeadlineSeconds":60,"provider":"nginx","service":{"port":80,"targetPort":9898},"targetRef":{"apiVersion":"apps/v1","kind":"Deployment","name":"podinfo"}}}
+    creationTimestamp: "2025-06-03T16:41:42Z"
+    generation: 1
+    name: podinfo
+    namespace: pod-info
+    resourceVersion: "39294"
+    uid: 496b5244-cf88-4d76-a023-eaa387c54279
+  spec:
+    analysis:
+      interval: 10s
+      maxWeight: 50
+      metrics:
+      - interval: 1m
+        name: request-success-rate
+        thresholdRange:
+          min: 99
+      stepWeight: 5
+      threshold: 10
+    autoscalerRef:
+      apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+      name: podinfo
+    ingressRef:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      name: podinfo
+    progressDeadlineSeconds: 60
+    provider: nginx
+    service:
+      port: 80
+      targetPort: 9898
+    targetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: podinfo
+  status:
+    canaryWeight: 0
+    conditions:
+    - lastTransitionTime: "2025-06-03T20:31:35Z"
+      lastUpdateTime: "2025-06-03T20:31:35Z"
+      message: Canary analysis failed, Deployment scaled to zero.
+      reason: Failed
+      status: "False"
+      type: Promoted
+    failedChecks: 0
+    iterations: 0
+    lastAppliedSpec: 7bc7465756
+    lastPromotedSpec: 789d46cfd9
+    lastTransitionTime: "2025-06-04T23:34:16Z"
+    phase: Failed
+    trackedConfigs: {}
+kind: List
+metadata:
+  resourceVersion: ""
